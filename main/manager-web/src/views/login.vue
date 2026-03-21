@@ -42,8 +42,8 @@
 
           <div class="title-stack">
             <div class="eyebrow">DeskBot Access</div>
-            <div class="login-text">{{ $t("login.title") }}</div>
-            <div class="login-welcome">{{ $t("login.welcome") }}</div>
+            <div class="login-text">Chào mừng bạn trở lại</div>
+            <div class="login-welcome">Đăng nhập vào DeskBot Console để quản lý thiết bị, tác vụ và các luồng AI của anh.</div>
           </div>
 
           <div class="form-wrap">
@@ -84,10 +84,10 @@
             </div>
 
             <div class="links-row">
-              <div v-if="allowUserRegister" class="link-item" @click="goToRegister">
+              <div class="link-item" @click="goToRegister">
                 {{ $t("login.register") }}
               </div>
-              <div class="link-item" v-if="enableMobileRegister" @click="goToForgetPassword">
+              <div class="link-item" @click="goToForgetPassword">
                 {{ $t("login.forgetPassword") }}
               </div>
             </div>
