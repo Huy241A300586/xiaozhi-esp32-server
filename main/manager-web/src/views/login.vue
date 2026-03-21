@@ -1,151 +1,96 @@
 <template>
   <div class="welcome">
-    <el-container style="height: 100%">
-      <el-header>
-        <div style="
-            display: flex;
-            align-items: center;
-            margin-top: 11px;
-            margin-left: 11px;
-            gap: 10px;
-          ">
-          <img loading="lazy" alt="" src="@/assets/xiaozhi-logo.png" style="width: 42px; height: 42px" />
-          <img loading="lazy" alt="" :src="xiaozhiAiIcon" style="height: 20px" />
+    <el-container style="height: 100%;">
+      <el-header class="auth-header">
+        <div class="auth-header-left">
+          <img loading="lazy" alt="" src="@/assets/xiaozhi-logo.png" class="auth-logo" />
+          <span class="auth-brand">DeskBot Console</span>
+        </div>
+
+        <div class="auth-header-right">
+          <div class="theme-toggle" title="Theme toggle (visual)">
+            <i class="sun-icon el-icon-sunrise"></i>
+            <div class="toggle-knob"></div>
+          </div>
         </div>
       </el-header>
-      <div class="login-person">
-        <img loading="lazy" alt="" src="@/assets/login/login-person.png" style="width: 100%" />
+
+      <div class="login-illustration-left">
+        <img loading="lazy" alt="robot" src="@/assets/login/login-person.png" />
       </div>
-      <el-main style="position: relative">
+
+      <el-main style="position: relative;">
         <div class="login-box" @keyup.enter="login">
-          <div style="
-              display: flex;
-              align-items: center;
-              gap: 20px;
-              margin-bottom: 39px;
-              padding: 0 30px;
-            ">
-            <img loading="lazy" alt="" src="@/assets/login/hi.png" style="width: 34px; height: 34px" />
-            <div class="login-text">{{ $t("login.title") }}</div>
-
-            <div class="login-welcome">
-              {{ $t("login.welcome") }}
-            </div>
-
-            <!-- 语言切换下拉菜单 -->
-            <el-dropdown trigger="click" class="title-language-dropdown"
-              @visible-change="handleLanguageDropdownVisibleChange">
-              <span class="el-dropdown-link">
-                <span class="current-language-text">{{ currentLanguageText }}</span>
-                <i class="el-icon-arrow-down el-icon--right" :class="{ 'rotate-down': languageDropdownVisible }"></i>
-              </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="changeLanguage('zh_CN')">
-                  {{ $t("language.zhCN") }}
-                </el-dropdown-item>
-                <el-dropdown-item @click.native="changeLanguage('zh_TW')">
-                  {{ $t("language.zhTW") }}
-                </el-dropdown-item>
-                <el-dropdown-item @click.native="changeLanguage('en')">
-                  {{ $t("language.en") }}
-                </el-dropdown-item>
-                <el-dropdown-item @click.native="changeLanguage('de')">
-                  {{ $t("language.de") }}
-                </el-dropdown-item>
-                <el-dropdown-item @click.native="changeLanguage('vi')">
-                  {{ $t("language.vi") }}
-                </el-dropdown-item>
-                <el-dropdown-item @click.native="changeLanguage('pt_BR')">
-                  {{ $t("language.ptBR") }}
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+          <div class="card-avatar">
+            <i class="el-icon-user"></i>
           </div>
-          <div style="padding: 0 30px">
-            <!-- 用户名登录 -->
+
+          <h1 class="login-title">CHÀO MỪNG ĐẾN VỚI ĐĂNG NHẬP</h1>
+
+          <div class="form-wrap">
             <template v-if="!isMobileLogin">
-              <div class="input-box">
+              <div class="input-row">
                 <img loading="lazy" alt="" class="input-icon" src="@/assets/login/username.png" />
-                <el-input v-model="form.username" :placeholder="$t('login.usernamePlaceholder')" />
+                <el-input v-model="form.username" class="input-field" :placeholder="$t('login.usernamePlaceholder')" />
               </div>
             </template>
 
-            <!-- 手机号登录 -->
             <template v-else>
-              <div class="input-box">
-                <div style="display: flex; align-items: center; width: 100%">
-                  <el-select v-model="form.areaCode" style="width: 220px; margin-right: 10px">
-                    <el-option v-for="item in mobileAreaList" :key="item.key" :label="`${item.name} (${item.key})`"
-                      :value="item.key" />
-                  </el-select>
-                  <el-input v-model="form.mobile" :placeholder="$t('login.mobilePlaceholder')" />
-                </div>
+              <div class="input-row">
+                <el-select v-model="form.areaCode" class="area-code-select">
+                  <el-option v-for="item in mobileAreaList" :key="item.key" :label="`${item.name} (${item.key})`" :value="item.key" />
+                </el-select>
+                <el-input v-model="form.mobile" class="input-field" :placeholder="$t('login.mobilePlaceholder')" />
               </div>
             </template>
 
-            <div class="input-box">
+            <div class="input-row">
               <img loading="lazy" alt="" class="input-icon" src="@/assets/login/password.png" />
-              <el-input v-model="form.password" :placeholder="$t('login.passwordPlaceholder')" type="password"
-                show-password />
+              <el-input v-model="form.password" class="input-field" :placeholder="$t('login.passwordPlaceholder')" type="password" show-password />
             </div>
-            <div style="
-                display: flex;
-                align-items: center;
-                margin-top: 20px;
-                width: 100%;
-                gap: 10px;
-              ">
-              <div class="input-box" style="width: calc(100% - 130px); margin-top: 0">
-                <img loading="lazy" alt="" class="input-icon" src="@/assets/login/shield.png" />
-                <el-input v-model="form.captcha" :placeholder="$t('login.captchaPlaceholder')" style="flex: 1" />
+
+            <div class="input-row captcha-row">
+              <img loading="lazy" alt="" class="input-icon" src="@/assets/login/shield.png" />
+              <el-input v-model="form.captcha" class="input-field" :placeholder="$t('login.captchaPlaceholder')" />
+              <div class="captcha-image" v-if="captchaUrl" @click="fetchCaptcha">
+                <img :src="captchaUrl" alt="captcha" />
               </div>
-              <img loading="lazy" v-if="captchaUrl" :src="captchaUrl" alt="验证码"
-                style="width: 150px; height: 40px; cursor: pointer" @click="fetchCaptcha" />
             </div>
-            <div style="
-                font-weight: 400;
-                font-size: 14px;
-                text-align: left;
-                color: #5778ff;
-                display: flex;
-                justify-content: space-between;
-                margin-top: 20px;
-              ">
-              <div v-if="allowUserRegister" style="cursor: pointer" @click="goToRegister">
+
+            <div class="links-row">
+              <div v-if="allowUserRegister" class="link-item" @click="goToRegister">
                 {{ $t("login.register") }}
               </div>
-              <div style="cursor: pointer" @click="goToForgetPassword" v-if="enableMobileRegister">
+              <div class="link-item" v-if="enableMobileRegister" @click="goToForgetPassword">
                 {{ $t("login.forgetPassword") }}
               </div>
             </div>
-          </div>
-          <div class="login-btn" @click="login">{{ $t("login.login") }}</div>
 
-          <!-- 登录方式切换按钮 -->
-          <div class="login-type-container" v-if="enableMobileRegister">
-            <div style="display: flex; gap: 10px">
-              <el-tooltip :content="$t('login.mobileLogin')" placement="bottom">
-                <el-button :type="isMobileLogin ? 'primary' : 'default'" icon="el-icon-mobile" circle
-                  @click="switchLoginType('mobile')"></el-button>
-              </el-tooltip>
-              <el-tooltip :content="$t('login.usernameLogin')" placement="bottom">
-                <el-button :type="!isMobileLogin ? 'primary' : 'default'" icon="el-icon-user" circle
-                  @click="switchLoginType('username')"></el-button>
-              </el-tooltip>
+            <div class="login-btn" @click="login">
+              {{ $t("login.login") }}
             </div>
-          </div>
-          <div style="font-size: 14px; color: #979db1">
-            {{ $t("login.agreeTo") }}
-            <div style="display: inline-block; color: #5778ff; cursor: pointer" @click="openPage('/user-agreement.html')">
-              {{ $t("login.userAgreement") }}
+
+            <div class="login-type-container" v-if="enableMobileRegister">
+              <div style="display: flex; gap: 10px">
+                <el-tooltip :content="$t('login.mobileLogin')" placement="bottom">
+                  <el-button :type="isMobileLogin ? 'primary' : 'default'" icon="el-icon-mobile" circle @click="switchLoginType('mobile')"></el-button>
+                </el-tooltip>
+                <el-tooltip :content="$t('login.usernameLogin')" placement="bottom">
+                  <el-button :type="!isMobileLogin ? 'primary' : 'default'" icon="el-icon-user" circle @click="switchLoginType('username')"></el-button>
+                </el-tooltip>
+              </div>
             </div>
-            {{ $t("login.and") }}
-            <div style="display: inline-block; color: #5778ff; cursor: pointer" @click="openPage('/privacy-policy.html')">
-              {{ $t("login.privacyPolicy") }}
+
+            <div class="agreement-text">
+              {{ $t("login.agreeTo") }}
+              <div class="link-inline" @click="openPage('/user-agreement.html')">{{ $t("login.userAgreement") }}</div>
+              {{ $t("login.and") }}
+              <div class="link-inline" @click="openPage('/privacy-policy.html')">{{ $t("login.privacyPolicy") }}</div>
             </div>
           </div>
         </div>
       </el-main>
+
       <el-footer>
         <version-footer />
       </el-footer>
@@ -156,10 +101,8 @@
 <script>
 import Api from "@/apis/api";
 import VersionFooter from "@/components/VersionFooter.vue";
-import i18n, { changeLanguage } from "@/i18n";
 import { getUUID, goToPage, showDanger, showSuccess, sm2Encrypt, validateMobile } from "@/utils";
 import { mapState } from "vuex";
-import featureManager from "@/utils/featureManager";
 
 export default {
   name: "login",
@@ -173,48 +116,6 @@ export default {
       mobileAreaList: (state) => state.pubConfig.mobileAreaList,
       sm2PublicKey: (state) => state.pubConfig.sm2PublicKey,
     }),
-    // 获取当前语言
-    currentLanguage() {
-      return i18n.locale || "zh_CN";
-    },
-    // 获取当前语言显示文本
-    currentLanguageText() {
-      const currentLang = this.currentLanguage;
-      switch (currentLang) {
-        case "zh_CN":
-          return this.$t("language.zhCN");
-        case "zh_TW":
-          return this.$t("language.zhTW");
-        case "en":
-          return this.$t("language.en");
-        case "de":
-          return this.$t("language.de");
-        case "vi":
-          return this.$t("language.vi");
-        case "pt_BR":
-          return this.$t("language.ptBR");
-        default:
-          return this.$t("language.zhCN");
-      }
-    },
-    // 根据当前语言获取对应的xiaozhi-ai图标
-    xiaozhiAiIcon() {
-      const currentLang = this.currentLanguage;
-      switch (currentLang) {
-        case "zh_CN":
-          return require("@/assets/xiaozhi-ai.png");
-        case "zh_TW":
-          return require("@/assets/xiaozhi-ai_zh_TW.png");
-        case "en":
-          return require("@/assets/xiaozhi-ai_en.png");
-        case "de":
-          return require("@/assets/xiaozhi-ai_de.png");
-        case "vi":
-          return require("@/assets/xiaozhi-ai_vi.png");
-        default:
-          return require("@/assets/xiaozhi-ai.png");
-      }
-    },
   },
   data() {
     return {
@@ -230,13 +131,11 @@ export default {
       captchaUuid: "",
       captchaUrl: "",
       isMobileLogin: false,
-      languageDropdownVisible: false,
     };
   },
   mounted() {
     this.fetchCaptcha();
     this.$store.dispatch("fetchPubConfig").then(() => {
-      // 根据配置决定默认登录方式
       this.isMobileLogin = this.enableMobileRegister;
     });
   },
@@ -249,7 +148,6 @@ export default {
       window.open(url, '_blank');
     },
     fetchCaptcha() {
-      // 处理手动清空localstorage导致无法获取验证码的问题
       const token = localStorage.getItem('token')
       if (token) {
         if (this.$route.path !== "/home") {
@@ -269,25 +167,8 @@ export default {
       }
     },
 
-    // 切换语言下拉菜单的可见状态变化
-    handleLanguageDropdownVisibleChange(visible) {
-      this.languageDropdownVisible = visible;
-    },
-
-    // 切换语言
-    changeLanguage(lang) {
-      changeLanguage(lang);
-      this.languageDropdownVisible = false;
-      this.$message.success({
-        message: this.$t("message.success"),
-        showClose: true,
-      });
-    },
-
-    // 切换登录方式
     switchLoginType(type) {
       this.isMobileLogin = type === "mobile";
-      // 清空表单
       this.form.username = "";
       this.form.mobile = "";
       this.form.password = "";
@@ -295,7 +176,6 @@ export default {
       this.fetchCaptcha();
     },
 
-    // 封装输入验证逻辑
     validateInput(input, messageKey) {
       if (!input.trim()) {
         showDanger(this.$t(messageKey));
@@ -303,7 +183,7 @@ export default {
       }
       return true;
     },
-    
+
     getUserInfo() {
       Api.user.getUserInfo(({ data }) => {
         if (data.code === 0) {
@@ -317,32 +197,25 @@ export default {
 
     async login() {
       if (this.isMobileLogin) {
-        // 手机号登录验证
         if (!validateMobile(this.form.mobile, this.form.areaCode)) {
           showDanger(this.$t('login.requiredMobile'));
           return;
         }
-        // 拼接手机号作为用户名
         this.form.username = this.form.areaCode + this.form.mobile;
       } else {
-        // 用户名登录验证
         if (!this.validateInput(this.form.username, 'login.requiredUsername')) {
           return;
         }
       }
 
-      // 验证密码
       if (!this.validateInput(this.form.password, 'login.requiredPassword')) {
         return;
       }
-      // 验证验证码
       if (!this.validateInput(this.form.captcha, 'login.requiredCaptcha')) {
         return;
       }
-      // 加密密码
       let encryptedPassword;
       try {
-        // 拼接验证码和密码
         const captchaAndPassword = this.form.captcha + this.form.password;
         encryptedPassword = sm2Encrypt(this.sm2PublicKey, captchaAndPassword);
       } catch (error) {
@@ -352,10 +225,8 @@ export default {
       }
 
       const plainUsername = this.form.username;
-
       this.form.captchaId = this.captchaUuid;
 
-      // 加密
       const loginData = {
         username: plainUsername,
         password: encryptedPassword,
@@ -370,14 +241,11 @@ export default {
           this.getUserInfo();
         },
         (err) => {
-          // 直接使用后端返回的国际化消息
           let errorMessage = err.data.msg || "登录失败";
-
           showDanger(errorMessage);
         }
       );
 
-      // 重新获取验证码
       setTimeout(() => {
         this.fetchCaptcha();
       }, 1000);
@@ -392,52 +260,137 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 @import "./auth.scss";
 
-.login-type-container {
-  margin: 10px 20px;
+.auth-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  height: 76px;
+  padding: 12px 28px;
+  box-sizing: border-box;
+}
+
+.auth-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.auth-logo {
+  width: 46px;
+  height: 46px;
+}
+
+.auth-brand {
+  font-weight: 700;
+  font-size: 20px;
+  color: #0f2a44;
+}
+
+.auth-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 91, 189, 0.06);
+  padding: 6px 10px;
+  border-radius: 18px;
+}
+.theme-toggle .sun-icon { color: #105bbd; font-size: 16px; }
+.theme-toggle .toggle-knob {
+  width: 36px;
+  height: 18px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(16,91,189,0.06);
+}
+
+.login-illustration-left {
+  position: absolute;
+  top: 120px;
+  left: 6%;
+  width: 420px;
+  pointer-events: none;
+  opacity: 0.95;
+}
+.login-illustration-left img { width: 100%; }
+
+.card-avatar {
+  width: 56px;
+  height: 56px;
+  margin: 8px auto 14px auto;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  background: rgba(16,91,189,0.06);
+  color: #105bbd;
+  border-radius: 50%;
+  font-size: 22px;
 }
 
-.title-language-dropdown {
-  margin-left: auto;
+.login-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 22px;
+  color: #2b3a4f;
+  letter-spacing: -0.02em;
+  margin: 0 0 18px 0;
 }
 
-.current-language-text {
-  margin-left: 4px;
-  margin-right: 4px;
-  font-size: 12px;
-  color: #3d4566;
+.form-wrap {
+  padding: 0 28px 28px 28px;
 }
 
-.language-dropdown {
-  margin-left: auto;
+.links-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  color: #5778ff;
+  font-weight: 400;
+}
+.link-item { cursor: pointer; }
+
+.agreement-text {
+  margin-top: 14px;
+  color: #9aa3b6;
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.4;
+}
+.link-inline {
+  color: #5778ff;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 6px;
 }
 
-.rotate-down {
-  transform: rotate(180deg);
-  transition: transform 0.3s ease;
+.login-type-container { margin-top: 12px; display:flex; justify-content:center; }
+
+.login-btn {
+  margin: 16px auto 8px auto;
+  width: 70%;
+  height: 44px;
+  line-height: 44px;
+  border-radius: 22px;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  background: linear-gradient(135deg, #105bbd 0%, #6299ff 100%);
+  box-shadow: 0 20px 40px -16px rgba(16,91,189,0.12);
+  cursor: pointer;
 }
 
-.el-icon-arrow-down {
-  transition: transform 0.3s ease;
-}
-
-:deep(.el-button--primary) {
-  background-color: #5778ff;
-  border-color: #5778ff;
-
-  &:hover,
-  &:focus {
-    background-color: #4a6ae8;
-    border-color: #4a6ae8;
-  }
-
-  &:active {
-    background-color: #3d5cd6;
-    border-color: #3d5cd6;
-  }
+@media (max-width: 1200px) {
+  .login-box { right: 6% !important; width: 420px !important; }
+  .login-illustration-left { display: none; }
 }
 </style>
