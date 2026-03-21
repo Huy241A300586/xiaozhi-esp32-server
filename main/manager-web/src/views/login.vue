@@ -1,5 +1,5 @@
 <template>
-  <div class="welcome login-scene">
+  <div class="welcome login-scene" :class="{ "theme-dark": isDarkTheme }">
     <el-container style="height: 100%">
       <el-header class="auth-header">
         <div class="auth-brand-wrap">
@@ -10,20 +10,30 @@
           </div>
         </div>
 
-        <el-dropdown trigger="click" class="title-language-dropdown" @visible-change="handleLanguageDropdownVisibleChange">
-          <span class="language-pill">
-            <span class="current-language-text">{{ currentLanguageText }}</span>
-            <i class="el-icon-arrow-down el-icon--right" :class="{ 'rotate-down': languageDropdownVisible }"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item @click.native="changeLanguage('zh_CN')">{{ $t("language.zhCN") }}</el-dropdown-item>
-            <el-dropdown-item @click.native="changeLanguage('zh_TW')">{{ $t("language.zhTW") }}</el-dropdown-item>
-            <el-dropdown-item @click.native="changeLanguage('en')">{{ $t("language.en") }}</el-dropdown-item>
-            <el-dropdown-item @click.native="changeLanguage('de')">{{ $t("language.de") }}</el-dropdown-item>
-            <el-dropdown-item @click.native="changeLanguage('vi')">{{ $t("language.vi") }}</el-dropdown-item>
-            <el-dropdown-item @click.native="changeLanguage('pt_BR')">{{ $t("language.ptBR") }}</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <div class="auth-header-actions">
+          <button class="theme-toggle" type="button" @click="toggleTheme" :aria-pressed="isDarkTheme ? 'true' : 'false'" :title="isDarkTheme ? 'Switch to light mode' : 'Switch to dark mode'">
+            <span class="theme-toggle-track">
+              <i class="theme-icon theme-icon-sun el-icon-sunny"></i>
+              <i class="theme-icon theme-icon-moon el-icon-moon"></i>
+              <span class="theme-toggle-thumb"></span>
+            </span>
+          </button>
+
+          <el-dropdown trigger="click" class="title-language-dropdown" @visible-change="handleLanguageDropdownVisibleChange">
+            <span class="language-pill">
+              <span class="current-language-text">{{ currentLanguageText }}</span>
+              <i class="el-icon-arrow-down el-icon--right" :class="{ 'rotate-down': languageDropdownVisible }"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="changeLanguage('zh_CN')">{{ $t("language.zhCN") }}</el-dropdown-item>
+              <el-dropdown-item @click.native="changeLanguage('zh_TW')">{{ $t("language.zhTW") }}</el-dropdown-item>
+              <el-dropdown-item @click.native="changeLanguage('en')">{{ $t("language.en") }}</el-dropdown-item>
+              <el-dropdown-item @click.native="changeLanguage('de')">{{ $t("language.de") }}</el-dropdown-item>
+              <el-dropdown-item @click.native="changeLanguage('vi')">{{ $t("language.vi") }}</el-dropdown-item>
+              <el-dropdown-item @click.native="changeLanguage('pt_BR')">{{ $t("language.ptBR") }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
       </el-header>
 
       <div class="scene-orb orb-left"></div>
@@ -181,6 +191,7 @@ export default {
       captchaUrl: "",
       isMobileLogin: false,
       languageDropdownVisible: false,
+      isDarkTheme: false,
     };
   },
   mounted() {
@@ -226,6 +237,9 @@ export default {
         message: this.$t("message.success"),
         showClose: true,
       });
+    },
+    toggleTheme() {
+      this.isDarkTheme = !this.isDarkTheme;
     },
     switchLoginType(type) {
       this.isMobileLogin = type === "mobile";
