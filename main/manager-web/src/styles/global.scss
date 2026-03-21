@@ -1,4 +1,51 @@
-// 覆盖 autofill 样式
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --dc-primary: #105bbd;
+  --dc-primary-container: #6299ff;
+  --dc-bg: #edf4ff;
+  --dc-surface-low: rgba(255, 255, 255, 0.56);
+  --dc-surface-lowest: rgba(255, 255, 255, 0.78);
+  --dc-surface-high: rgba(255, 255, 255, 0.92);
+  --dc-on-surface: #1f3150;
+  --dc-on-surface-variant: #667a99;
+  --dc-outline-ghost: rgba(117, 148, 196, 0.18);
+  --dc-shadow-soft: 0 24px 48px -12px rgba(16, 91, 189, 0.08);
+  --dc-shadow-float: 0 32px 72px -28px rgba(16, 91, 189, 0.18);
+  --dc-radius-lg: 1.5rem;
+  --dc-radius-md: 0.75rem;
+}
+
+html,
+body {
+  font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--dc-on-surface);
+  background: var(--dc-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  line-height: 1.6;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.el-button,
+.el-tag,
+.el-dropdown-menu__item,
+.el-form-item__label,
+.el-input__inner,
+.el-select-dropdown__item {
+  font-family: "Inter", "Plus Jakarta Sans", sans-serif;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -14,19 +61,22 @@ select:-webkit-autofill:focus {
 }
 
 .el-footer {
-  height: 35px !important; /* 使用 !important 确保覆盖默认样式 */
+  height: 35px !important;
 }
 
-.el-icon-video-play, .el-icon-video-pause { 
+.el-icon-video-play,
+.el-icon-video-pause {
   font-size: 18px !important;
 }
 
 .is-light {
-  border: 1px solid #e4e7ed !important;
+  border: 1px solid rgba(117, 148, 196, 0.2) !important;
   color: #595959;
   font-size: 14px;
-  background: #fafcfe !important;
+  background: rgba(250, 252, 254, 0.96) !important;
+  box-shadow: var(--dc-shadow-soft);
+
   .popper__arrow {
-    border-top-color: #e4e7ed !important;
-   }
+    border-top-color: rgba(117, 148, 196, 0.2) !important;
+  }
 }

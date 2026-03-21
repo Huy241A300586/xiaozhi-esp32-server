@@ -42,8 +42,8 @@
 
           <div class="title-stack">
             <div class="eyebrow">DeskBot Access</div>
-            <div class="login-text">Chào mừng bạn trở lại</div>
-            <div class="login-welcome">Đăng nhập vào DeskBot Console để quản lý thiết bị, tác vụ và các luồng AI của anh.</div>
+            <div class="login-text">Chào mừng đến với đăng nhập</div>
+            <div class="login-welcome">Truy cập DeskBot Console để quản lý thiết bị, tác vụ và các luồng AI với trải nghiệm gọn, sạch và tập trung.</div>
           </div>
 
           <div class="form-wrap">
