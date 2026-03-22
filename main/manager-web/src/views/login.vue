@@ -58,7 +58,7 @@
  <el-option
  v-for="item in mobileAreaList"
  :key="item.key"
- :label="`${item.name} (${item.key})`"
+ :label="formatAreaLabel(item)"
  :value="item.key"
  />
  </el-select>
@@ -221,6 +221,49 @@ export default {
  this.form.captcha = "";
  this.fetchCaptcha();
  },
+    formatAreaLabel(item) {
+      const areaNameMap = {
+        '+86': 'China Mainland',
+        '+852': 'Hong Kong',
+        '+853': 'Macau',
+        '+886': 'Taiwan',
+        '+1': 'USA/Canada',
+        '+44': 'United Kingdom',
+        '+33': 'France',
+        '+39': 'Italy',
+        '+49': 'Germany',
+        '+48': 'Poland',
+        '+41': 'Switzerland',
+        '+34': 'Spain',
+        '+45': 'Denmark',
+        '+60': 'Malaysia',
+        '+61': 'Australia',
+        '+62': 'Indonesia',
+        '+63': 'Philippines',
+        '+64': 'New Zealand',
+        '+65': 'Singapore',
+        '+66': 'Thailand',
+        '+81': 'Japan',
+        '+82': 'South Korea',
+        '+84': 'Vietnam',
+        '+91': 'India',
+        '+92': 'Pakistan',
+        '+234': 'Nigeria',
+        '+880': 'Bangladesh',
+        '+966': 'Saudi Arabia',
+        '+971': 'UAE',
+        '+55': 'Brazil',
+        '+52': 'Mexico',
+        '+56': 'Chile',
+        '+54': 'Argentina',
+        '+20': 'Egypt',
+        '+27': 'South Africa',
+        '+254': 'Kenya',
+        '+255': 'Tanzania',
+        '+7': 'Kazakhstan'
+      };
+      return `${areaNameMap[item.key] || item.name} (${item.key})`;
+    },
  validateInput(input, messageKey) {
  if (!input.trim()) {
  showDanger(this.$t(messageKey));
