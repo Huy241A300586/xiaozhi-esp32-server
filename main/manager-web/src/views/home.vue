@@ -1,58 +1,80 @@
 <template>
-  <div class="welcome">
-    <!-- 公共头部 -->
+  <div class="welcome dashboard-scene">
     <HeaderBar :devices="devices" @search="handleSearch" @search-reset="handleSearchReset" />
-    <el-main style="padding: 20px;display: flex;flex-direction: column;">
-      <div>
-        <!-- 首页内容 -->
-        <div class="add-device">
-          <div class="add-device-bg">
-            <div class="hellow-text" style="margin-top: 30px;">
-              {{ $t('home.greeting') }}
-            </div>
-            <div class="hellow-text">
-              {{ $t('home.wish') }}
-            </div>
-            <div class="hi-hint">
-              let's have a wonderful day!
-            </div>
-            <div class="add-device-btn">
-              <div class="left-add" @click="showAddDialog">
-                {{ $t('home.addAgent') }}
-              </div>
-              <div style="width: 23px;height: 13px;background: #5778ff;margin-left: -10px;" />
-              <div class="right-add">
-                <i class="el-icon-right" @click="showAddDialog" style="font-size: 20px;color: #fff;" />
-              </div>
+
+    <el-main class="dashboard-main">
+      <div class="dashboard-shell">
+        <section class="hero-dashboard">
+          <div class="hero-copy">
+            <div class="hero-eyebrow">DeskBot Dashboard</div>
+            <div class="hero-title">{{ $t('home.greeting') }}</div>
+            <div class="hero-title">{{ $t('home.wish') }}</div>
+            <div class="hero-subtitle">Trung tâm điều phối thiết bị, vai trò và vận hành AI trên một giao diện thống nhất.</div>
+            <div class="hero-actions">
+              <button class="hero-primary-btn" @click="showAddDialog">
+                <span>{{ $t('home.addAgent') }}</span>
+                <i class="el-icon-plus"></i>
+              </button>
             </div>
           </div>
-        </div>
-        <div class="device-list-container">
-          <template v-if="isLoading">
-            <div v-for="i in skeletonCount" :key="'skeleton-' + i" class="skeleton-item">
-              <div class="skeleton-image"></div>
-              <div class="skeleton-content">
-                <div class="skeleton-line"></div>
-                <div class="skeleton-line-short"></div>
-              </div>
-            </div>
-          </template>
 
-          <template v-else>
-            <DeviceItem v-for="(item, index) in devices" :key="index" :device="item" :feature-status="featureStatus" 
-              @configure="goToRoleConfig" @deviceManage="handleDeviceManage" @delete="handleDeleteAgent" 
-              @chat-history="handleShowChatHistory" />
-          </template>
-        </div>
+          <div class="hero-aside">
+            <div class="hero-stat-card">
+              <div class="hero-stat-label">Tổng agent</div>
+              <div class="hero-stat-value">{{ devices.length }}</div>
+            </div>
+            <div class="hero-stat-card muted">
+              <div class="hero-stat-label">Trạng thái</div>
+              <div class="hero-stat-value">{{ isLoading ? 'Đang tải' : 'Sẵn sàng' }}</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="device-panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-eyebrow">Agent Workspace</div>
+              <h2 class="panel-title">Danh sách thiết bị / agent</h2>
+            </div>
+            <div class="panel-meta">{{ devices.length }} mục</div>
+          </div>
+
+          <div class="device-list-container">
+            <template v-if="isLoading">
+              <div v-for="i in skeletonCount" :key="'skeleton-' + i" class="skeleton-item">
+                <div class="skeleton-image"></div>
+                <div class="skeleton-content">
+                  <div class="skeleton-line"></div>
+                  <div class="skeleton-line-short"></div>
+                </div>
+              </div>
+            </template>
+
+            <template v-else>
+              <DeviceItem
+                v-for="(item, index) in devices"
+                :key="index"
+                :device="item"
+                :feature-status="featureStatus"
+                @configure="goToRoleConfig"
+                @deviceManage="handleDeviceManage"
+                @delete="handleDeleteAgent"
+                @chat-history="handleShowChatHistory"
+              />
+            </template>
+          </div>
+        </section>
       </div>
+
       <AddWisdomBodyDialog :visible.sync="addDeviceDialogVisible" @confirm="handleWisdomBodyAdded" />
     </el-main>
+
     <el-footer>
       <version-footer />
     </el-footer>
+
     <chat-history-dialog :visible.sync="showChatHistory" :agent-id="currentAgentId" :agent-name="currentAgentName" />
   </div>
-
 </template>
 
 <script>
@@ -79,7 +101,6 @@ export default {
       showChatHistory: false,
       currentAgentId: '',
       currentAgentName: '',
-      // 功能状态
       featureStatus: {
         voiceprintRecognition: false,
         voiceClone: false,
@@ -94,7 +115,6 @@ export default {
   },
 
   methods: {
-    // 加载功能状态
     async loadFeatureStatus() {
       await featureManager.waitForInitialization();
       const config = featureManager.getConfig();
@@ -104,15 +124,13 @@ export default {
         knowledgeBase: config.knowledgeBase
       };
     },
-    
     showAddDialog() {
       this.addDeviceDialogVisible = true
     },
     goToRoleConfig() {
-      // 点击配置角色后跳转到角色配置页
       this.$router.push('/role-config')
     },
-    handleWisdomBodyAdded(res) {
+    handleWisdomBodyAdded() {
       this.fetchAgentList();
       this.addDeviceDialogVisible = false;
     },
@@ -122,7 +140,6 @@ export default {
     handleSearch(keyword) {
       this.isSearching = true;
       this.isLoading = true;
-      // 检测MAC地址格式：包含4个冒号
       const isMac = /^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$/.test(keyword)
       const searchType = isMac ? 'mac' : 'name';
       Api.agent.searchAgent(keyword, searchType, ({ data }) => {
@@ -141,15 +158,11 @@ export default {
     },
     handleSearchReset() {
       this.isSearching = false;
-      // 直接将原始设备列表赋值给显示设备列表，避免重新加载数据
       this.devices = [...this.originalDevices];
     },
-
-    // 搜索更新智能体列表
     handleSearchResult(filteredList) {
-      this.devices = filteredList; // 更新设备列表
+      this.devices = filteredList;
     },
-    // 获取智能体列表
     fetchAgentList() {
       this.isLoading = true;
       Api.agent.getAgentList(({ data }) => {
@@ -159,10 +172,9 @@ export default {
             agentId: item.id
           }));
 
-          // 动态设置骨架屏数量（可选）
           this.skeletonCount = Math.min(
-            Math.max(this.originalDevices.length, 3), // 最少3个
-            10 // 最多10个
+            Math.max(this.originalDevices.length, 3),
+            10
           );
 
           this.handleSearchReset();
@@ -173,7 +185,6 @@ export default {
         this.isLoading = false;
       });
     },
-    // 删除智能体
     handleDeleteAgent(agentId) {
       this.$confirm(this.$t('home.confirmDeleteAgent'), '提示', {
         confirmButtonText: this.$t('button.ok'),
@@ -186,7 +197,7 @@ export default {
               message: this.$t('home.deleteSuccess'),
               showClose: true
             });
-            this.fetchAgentList(); // 刷新列表
+            this.fetchAgentList();
           } else {
             this.$message.error({
               message: res.data.msg || this.$t('home.deleteFailed'),
@@ -206,124 +217,199 @@ export default {
 </script>
 
 <style scoped>
-.welcome {
-  min-width: 900px;
-  min-height: 506px;
+.welcome.dashboard-scene {
+  min-width: 1100px;
+  min-height: 100vh;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(145deg, #e6eeff, #eff0ff);
-  background-size: cover;
-  /* 确保背景图像覆盖整个元素 */
-  background-position: center;
-  /* 从顶部中心对齐 */
-  -webkit-background-size: cover;
-  /* 兼容老版本WebKit浏览器 */
-  -o-background-size: cover;
-  /* 兼容老版本Opera浏览器 */
+  background:
+    radial-gradient(circle at 14% 16%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 24%),
+    radial-gradient(circle at 82% 12%, rgba(101, 141, 255, 0.18) 0%, rgba(101, 141, 255, 0) 24%),
+    linear-gradient(145deg, #f7faff 0%, #edf4ff 48%, #f4f7ff 100%);
+  color: #1d2a4d;
 }
 
-.add-device {
-  height: 195px;
-  border-radius: 15px;
+.dashboard-main {
+  padding: 18px 20px 10px !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.dashboard-shell {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.hero-dashboard {
+  min-height: 240px;
+  border-radius: 28px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(269.62deg,
-      #e0e6fd 0%,
-      #cce7ff 49.69%,
-      #d3d3fe 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.6fr);
+  gap: 20px;
+  padding: 34px 38px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.58) 100%),
+    url("@/assets/home/main-top-bg.png") center center / cover no-repeat;
+  border: 1px solid rgba(109, 132, 214, 0.14);
+  box-shadow: 0 26px 64px -34px rgba(33, 57, 122, 0.25);
 }
 
-.add-device-bg {
-  width: 100%;
-  height: 100%;
-  text-align: left;
-  background-image: url("@/assets/home/main-top-bg.png");
-  overflow: hidden;
-  background-size: cover;
-  /* 确保背景图像覆盖整个元素 */
-  background-position: center;
-  /* 从顶部中心对齐 */
-  -webkit-background-size: cover;
-  /* 兼容老版本WebKit浏览器 */
-  -o-background-size: cover;
-  box-sizing: border-box;
-
-  /* 兼容老版本Opera浏览器 */
-  .hellow-text {
-    margin-left: 75px;
-    color: #3d4566;
-    font-size: 33px;
-    font-weight: 700;
-    letter-spacing: 0;
-  }
-
-  .hi-hint {
-    font-weight: 400;
-    font-size: 12px;
-    text-align: left;
-    color: #818cae;
-    margin-left: 75px;
-    margin-top: 5px;
-  }
+.hero-dashboard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.24) 44%, rgba(255,255,255,0.10) 100%);
+  pointer-events: none;
 }
 
-.add-device-btn {
+.hero-copy,
+.hero-aside {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-eyebrow,
+.panel-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(41, 61, 122, 0.72);
+  margin-bottom: 12px;
+}
+
+.hero-title {
+  font-size: 36px;
+  line-height: 1.14;
+  font-weight: 800;
+  color: #223054;
+}
+
+.hero-subtitle {
+  margin-top: 14px;
+  max-width: 640px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(34, 48, 84, 0.72);
+}
+
+.hero-actions {
   display: flex;
   align-items: center;
-  margin-left: 75px;
-  margin-top: 15px;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.hero-primary-btn {
+  height: 46px;
+  border: none;
+  padding: 0 18px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #4f78ff 0%, #6f8bff 100%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 18px 30px -20px rgba(79, 120, 255, 0.55);
+}
 
-  .left-add {
-    padding: 0 14px;
-    height: 34px;
-    border-radius: 17px;
-    background: #5778ff;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-    line-height: 34px;
-  }
+.hero-aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 14px;
+}
 
-  .right-add {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: #5778ff;
-    margin-left: -6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.hero-stat-card {
+  border-radius: 20px;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(114, 138, 214, 0.16);
+  box-shadow: 0 20px 48px -34px rgba(50, 71, 136, 0.3);
+}
+
+.hero-stat-card.muted {
+  background: rgba(248, 251, 255, 0.65);
+}
+
+.hero-stat-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(44, 63, 121, 0.58);
+  margin-bottom: 8px;
+}
+
+.hero-stat-value {
+  font-size: 26px;
+  font-weight: 800;
+  color: #223054;
+}
+
+.device-panel {
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 26px 12px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(116, 137, 214, 0.14);
+  box-shadow: 0 24px 60px -38px rgba(36, 61, 128, 0.28);
+}
+
+.panel-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.panel-title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #223054;
+}
+
+.panel-meta {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(34, 48, 84, 0.58);
 }
 
 .device-list-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 30px;
-  padding: 30px 0;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 22px;
+  padding: 20px 0 10px;
 }
 
-/* 在 DeviceItem.vue 的样式中 */
 .device-item {
   margin: 0 !important;
-  /* 避免冲突 */
   width: auto !important;
 }
 
-.footer {
-  font-size: 12px;
-  font-weight: 400;
-  margin-top: auto;
-  padding-top: 30px;
-  color: #979db1;
-  text-align: center;
-  /* 居中显示 */
-}
-
-/* 骨架屏动画 */
 @keyframes shimmer {
   100% {
     transform: translateX(100%);
@@ -331,33 +417,33 @@ export default {
 }
 
 .skeleton-item {
-  background: #fff;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(116, 137, 214, 0.12);
+  border-radius: 20px;
   padding: 20px;
   height: 120px;
   position: relative;
   overflow: hidden;
-  margin-bottom: 20px;
 }
 
 .skeleton-image {
-  width: 80px;
-  height: 80px;
-  background: #f0f2f5;
-  border-radius: 4px;
+  width: 72px;
+  height: 72px;
+  background: #edf2fb;
+  border-radius: 16px;
   float: left;
   position: relative;
   overflow: hidden;
 }
 
 .skeleton-content {
-  margin-left: 100px;
+  margin-left: 92px;
 }
 
 .skeleton-line {
   height: 16px;
-  background: #f0f2f5;
-  border-radius: 4px;
+  background: #edf2fb;
+  border-radius: 999px;
   margin-bottom: 12px;
   width: 70%;
   position: relative;
@@ -366,8 +452,8 @@ export default {
 
 .skeleton-line-short {
   height: 12px;
-  background: #f0f2f5;
-  border-radius: 4px;
+  background: #edf2fb;
+  border-radius: 999px;
   width: 50%;
 }
 
@@ -380,8 +466,43 @@ export default {
   height: 100%;
   background: linear-gradient(90deg,
       rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.45),
       rgba(255, 255, 255, 0));
   animation: shimmer 1.5s infinite;
+}
+
+@media (max-width: 1200px) {
+  .hero-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-aside {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 900px) {
+  .welcome.dashboard-scene {
+    min-width: 0;
+    height: auto;
+  }
+
+  .dashboard-main {
+    padding: 14px !important;
+  }
+
+  .hero-dashboard,
+  .device-panel {
+    border-radius: 22px;
+    padding: 20px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .device-list-container {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

@@ -4,7 +4,7 @@
       <!-- 左侧元素 -->
       <div class="header-left" @click="goHome">
         <img loading="lazy" alt="" src="@/assets/xiaozhi-logo.png" class="logo-img" />
-        <img loading="lazy" alt="" :src="xiaozhiAiIcon" class="brand-img" />
+        <div class="brand-text">DeskBot Console</div>
       </div>
 
       <!-- 中间导航菜单 -->
@@ -890,5 +890,16 @@ export default {
 
 .el-icon-arrow-down {
   transition: transform 0.3s ease;
+}
+</style>
+
+
+<style scoped>
+.brand-text {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #223054;
+  white-space: nowrap;
 }
 </style>
