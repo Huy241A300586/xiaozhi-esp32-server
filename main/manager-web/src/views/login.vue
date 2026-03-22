@@ -7,7 +7,6 @@
  <img loading="lazy" alt="" src="@/assets/xiaozhi-logo.png" class="auth-logo" />
  <div class="auth-brand-copy">
  <div class="auth-brand-title">DeskBot Console</div>
- <div class="auth-brand-subtitle">Digital concierge for your AI operations</div>
  </div>
  </div>
 
