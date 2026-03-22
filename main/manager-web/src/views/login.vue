@@ -59,8 +59,6 @@
  <!-- Hero heading (uses explicit copy to match the mockup feel) -->
  <h1 class="glass-title">CHÀO MỪNG ĐẾN VỚI ĐĂNG NHẬP</h1>
 
- <p class="glass-subtitle">{{ $t("login.prompt") || $t("login.login") || $t("login.login") }}</p>
-
  <!-- Form area -->
  <div class="glass-form">
  <!-- username or mobile -->
