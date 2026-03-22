@@ -1,5 +1,5 @@
 <template>
- <div class="welcome login-scene">
+ <div class="welcome login-scene" :class="{ 'login-scene--light': !isDarkMode }">
  <el-container style="height: 100%">
  <!-- Header with brand and language pill (keeps existing behavior) -->
  <el-header class="auth-header">
@@ -26,9 +26,20 @@
  </el-dropdown-menu>
  </el-dropdown>
  <!-- small dark-mode-like toggle placeholder to match mockup top-right (keeps purely visual) -->
- <div class="theme-toggle" aria-hidden="true">
- <el-switch :value="false" disabled active-color="#fff" inactive-color="#f0f0f0" />
- </div>
+ <button
+ class="theme-toggle"
+ type="button"
+ @click="toggleTheme"
+ :aria-label="isDarkMode ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'"
+ >
+ <span class="theme-toggle__label">{{ isDarkMode ? 'Dark' : 'Light' }}</span>
+ <el-switch
+ :value="isDarkMode"
+ active-color="#7c5cff"
+ inactive-color="#dfe7ff"
+ @change="toggleTheme"
+ />
+ </button>
  </div>
  </el-header>
 
@@ -210,6 +221,7 @@ export default {
  captchaUrl: "",
  isMobileLogin: false,
  languageDropdownVisible: false,
+ isDarkMode: true,
  };
  },
  mounted() {
@@ -255,6 +267,9 @@ export default {
  message: this.$t("message.success"),
  showClose: true,
  });
+ },
+ toggleTheme() {
+ this.isDarkMode = !this.isDarkMode;
  },
  switchLoginType(type) {
  this.isMobileLogin = type === "mobile";
