@@ -278,36 +278,6 @@ export default {
     userMenuOptions() {
       return [
         {
-          label: this.currentLanguageText,
-          value: "language",
-          children: [
-            {
-              label: this.$t("language.zhCN"),
-              value: "zh_CN",
-            },
-            {
-              label: this.$t("language.zhTW"),
-              value: "zh_TW",
-            },
-            {
-              label: this.$t("language.en"),
-              value: "en",
-            },
-            {
-              label: this.$t("language.de"),
-              value: "de",
-            },
-            {
-              label: this.$t("language.vi"),
-              value: "vi",
-            },
-            {
-              label: this.$t("language.ptBR"),
-              value: "pt_BR",
-            },
-          ],
-        },
-        {
           label: this.$t("header.changePassword"),
           value: "changePassword",
         },
