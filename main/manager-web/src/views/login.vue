@@ -1,5 +1,5 @@
 <template>
- <div class="welcome login-scene">
+ <div class="welcome-shell"><div class="welcome login-scene" :style="sceneScaleStyle">
  <el-container style="height: 100%">
  <!-- Header with brand and language pill (keeps existing behavior) -->
  <el-header class="auth-header">
@@ -153,6 +153,7 @@
  </el-footer>
  </el-container>
  </div>
+ </div>
 </template>
 
 <script>
@@ -195,6 +196,17 @@ export default {
  default:
  return this.$t("language.zhCN");
  }
+ },
+ sceneScaleStyle() {
+ const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1920;
+ const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 1080;
+ const scale = Math.min(viewportWidth / 1920, viewportHeight / 1080);
+ return {
+ width: '1920px',
+ height: '1080px',
+ transform: `scale(${scale})`,
+ transformOrigin: 'top center'
+ };
  },
  },
  data() {

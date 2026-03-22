@@ -422,3 +422,49 @@
  .glass-card { width: 100%; max-width: 720px; padding: 18px 16px 14px; }
  .captcha-image { width: 140px; height: 50px; }
 }
+
+/* Fixed 1920x1080 login canvas scaled to viewport */
+.welcome-shell {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef5ff;
+}
+
+.welcome.login-scene {
+  width: 1920px !important;
+  height: 1080px !important;
+  min-width: 1920px !important;
+  min-height: 1080px !important;
+  max-width: none !important;
+  max-height: none !important;
+  box-sizing: border-box;
+}
+
+.welcome.login-scene .el-container {
+  width: 100%;
+  height: 100%;
+}
+
+.welcome.login-scene .auth-main {
+  min-height: 0;
+}
+
+@media (max-width: 1200px) {
+  .welcome.login-scene {
+    width: 1920px !important;
+    min-width: 1920px !important;
+    padding: 20px 24px 12px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .welcome.login-scene {
+    width: 1920px !important;
+    min-width: 1920px !important;
+    padding: 20px 24px 12px !important;
+  }
+}
