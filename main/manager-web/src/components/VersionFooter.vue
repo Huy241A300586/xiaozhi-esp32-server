@@ -1,7 +1,7 @@
 <template>
   <div class="copyright">
     <div class="footer-content">
-      <span>{{ year }} {{ name }} {{ version }}</span>
+      <span>@2026 deskbot by xuanloi 0.8,1</span>
       <template v-if="beianGaNum !== 'null'">
         <span v-if="beianIcpNum !== 'null' || name">|</span>
         <a :href="'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=' + beianGaNum" target="_blank"
