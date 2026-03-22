@@ -42,7 +42,7 @@
                 <template v-if="enableMobileRegister">
                   <div class="mobile-row">
                     <div class="input-box input-box-soft area-code-box">
-                      <el-select v-model="form.areaCode" class="area-code-select">
+                      <el-select v-model="form.areaCode" class="area-code-select" filterable default-first-option :placeholder="'Mã vùng'">
                         <el-option v-for="item in mobileAreaList" :key="item.key" :label="`${item.name} (${item.key})`" :value="item.key" />
                       </el-select>
                     </div>
@@ -150,7 +150,7 @@ export default {
         confirmPassword: '',
         captcha: '',
         captchaId: '',
-        areaCode: '+86',
+        areaCode: '+84',
         mobile: '',
         mobileCaptcha: ''
       },
