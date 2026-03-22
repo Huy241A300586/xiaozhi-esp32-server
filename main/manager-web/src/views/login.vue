@@ -134,10 +134,14 @@
 
  <!-- agreement text -->
  <div class="agreement-text">
- <span>Đăng nhập có nghĩa là bạn chấp nhận </span>
- <div class="link-inline" @click="openPage('/user-agreement.html')">Thỏa thuận người dùng</div>
- <span> và </span>
- <div class="link-inline" @click="openPage('/privacy-policy.html')">Chính sách bảo mật</div>
+ <div class="agreement-line">
+ <span>Đăng nhập có nghĩa là chấp nhận </span>
+ <span class="link-inline" @click="openPage('/user-agreement.html')">Thỏa thuận người dùng</span>
+ </div>
+ <div class="agreement-line">
+ <span>và </span>
+ <span class="link-inline" @click="openPage('/privacy-policy.html')">Chính sách bảo mật</span>
+ </div>
  </div>
  </div>
  </div>

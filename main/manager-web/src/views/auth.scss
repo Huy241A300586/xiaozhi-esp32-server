@@ -348,7 +348,20 @@
  margin-top: 8px;
  color: var(--auth-on-surface-variant);
  font-size: 13px;
- line-height: 1.6;
+ line-height: 1.55;
+ text-align: center;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 2px;
+}
+
+.agreement-line {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-wrap: nowrap;
+ gap: 4px;
  text-align: center;
 }
 
