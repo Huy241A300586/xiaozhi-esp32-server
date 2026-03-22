@@ -136,10 +136,10 @@
 
  <!-- agreement text -->
  <div class="agreement-text">
- {{ $t("login.agreeTo") }}
- <div class="link-inline" @click="openPage('/user-agreement.html')">{{ $t("login.userAgreement") }}</div>
- {{ $t("login.and") }}
- <div class="link-inline" @click="openPage('/privacy-policy.html')">{{ $t("login.privacyPolicy") }}</div>
+ <span>Đăng nhập có nghĩa là bạn chấp nhận </span>
+ <div class="link-inline" @click="openPage('/user-agreement.html')">Thỏa thuận người dùng</div>
+ <span> và </span>
+ <div class="link-inline" @click="openPage('/privacy-policy.html')">Chính sách bảo mật</div>
  </div>
  </div>
  </div>
