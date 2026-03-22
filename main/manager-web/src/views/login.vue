@@ -10,24 +10,7 @@
  </div>
  </div>
 
- <div class="header-actions">
- <el-dropdown trigger="click" class="title-language-dropdown" @visible-change="handleLanguageDropdownVisibleChange">
- <span class="language-pill">
- <span class="current-language-text">{{ currentLanguageText }}</span>
- <i class="el-icon-arrow-down el-icon--right" :class="{ 'rotate-down': languageDropdownVisible }"></i>
- </span>
- <el-dropdown-menu slot="dropdown">
- <el-dropdown-item @click.native="changeLanguage('zh_CN')">{{ $t("language.zhCN") }}</el-dropdown-item>
- <el-dropdown-item @click.native="changeLanguage('zh_TW')">{{ $t("language.zhTW") }}</el-dropdown-item>
- <el-dropdown-item @click.native="changeLanguage('en')">{{ $t("language.en") }}</el-dropdown-item>
- <el-dropdown-item @click.native="changeLanguage('de')">{{ $t("language.de") }}</el-dropdown-item>
- <el-dropdown-item @click.native="changeLanguage('vi')">{{ $t("language.vi") }}</el-dropdown-item>
- <el-dropdown-item @click.native="changeLanguage('pt_BR')">{{ $t("language.ptBR") }}</el-dropdown-item>
- </el-dropdown-menu>
- </el-dropdown>
- <!-- small dark-mode-like toggle placeholder to match mockup top-right (keeps purely visual) -->
-
- </div>
+ <div class="header-actions"></div>
  </el-header>
 
  <!-- Decorative orbs for atmospheric depth (keeps background approach) -->
@@ -159,7 +142,7 @@
 <script>
 import Api from "@/apis/api";
 import VersionFooter from "@/components/VersionFooter.vue";
-import i18n, { changeLanguage } from "@/i18n";
+import i18n from "@/i18n";
 import { getUUID, goToPage, showDanger, showSuccess, sm2Encrypt, validateMobile } from "@/utils";
 import { mapState } from "vuex";
 
@@ -176,26 +159,10 @@ export default {
  sm2PublicKey: (state) => state.pubConfig.sm2PublicKey,
  }),
  currentLanguage() {
- return i18n.locale || "zh_CN";
+ return "vi";
  },
  currentLanguageText() {
- const currentLang = this.currentLanguage;
- switch (currentLang) {
- case "zh_CN":
- return this.$t("language.zhCN");
- case "zh_TW":
- return this.$t("language.zhTW");
- case "en":
- return this.$t("language.en");
- case "de":
- return this.$t("language.de");
- case "vi":
  return this.$t("language.vi");
- case "pt_BR":
- return this.$t("language.ptBR");
- default:
- return this.$t("language.zhCN");
- }
  },
  sceneScaleStyle() {
  const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1920;
@@ -223,7 +190,6 @@ export default {
  captchaUuid: "",
  captchaUrl: "",
  isMobileLogin: false,
- languageDropdownVisible: false,
  };
  },
  mounted() {
@@ -258,17 +224,6 @@ export default {
  }
  });
  }
- },
- handleLanguageDropdownVisibleChange(visible) {
- this.languageDropdownVisible = visible;
- },
- changeLanguage(lang) {
- changeLanguage(lang);
- this.languageDropdownVisible = false;
- this.$message.success({
- message: this.$t("message.success"),
- showClose: true,
- });
  },
  switchLoginType(type) {
  this.isMobileLogin = type === "mobile";
