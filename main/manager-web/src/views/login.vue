@@ -4,7 +4,7 @@
  <!-- Header with brand and language pill (keeps existing behavior) -->
  <el-header class="auth-header">
  <div class="auth-brand-wrap">
- <img loading="lazy" alt="" src="@/assets/xiaozhi-logo.png" class="auth-logo" />
+ <img loading="lazy" alt="" src="@/assets/login/deskbot-robot-transparent.png" class="auth-logo" />
  <div class="auth-brand-copy">
  <div class="auth-brand-title">DeskBot Console</div>
  </div>
