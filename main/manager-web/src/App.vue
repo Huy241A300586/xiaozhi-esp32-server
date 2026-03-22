@@ -7,11 +7,12 @@
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: var(--dc-font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  text-align: left;
+  color: var(--dc-on-surface);
+  min-height: 100vh;
 }
 
 nav {
@@ -29,7 +30,7 @@ nav {
 
 .copyright {
   text-align: center;
-  color: rgb(0, 0, 0);
+  color: var(--dc-on-surface-soft);
   font-size: 12px;
   font-weight: 400;
   margin-top: auto;
