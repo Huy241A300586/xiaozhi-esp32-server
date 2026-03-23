@@ -14,18 +14,18 @@
       <div class="scene-orb orb-left"></div>
       <div class="scene-orb orb-right"></div>
       <div class="mascot mascot-top-right">
-        <img loading="lazy" src="@/assets/login/hi.png" alt="mascot" />
+        <img loading="lazy" src="@/assets/login/hi.png" alt="linh vật" />
       </div>
       <div class="mascot mascot-left">
-        <img loading="lazy" src="@/assets/login/hi.png" alt="mascot" />
+        <img loading="lazy" src="@/assets/login/hi.png" alt="linh vật" />
       </div>
       <div class="mascot mascot-bottom-right">
-        <img loading="lazy" src="@/assets/login/hi.png" alt="mascot" />
+        <img loading="lazy" src="@/assets/login/hi.png" alt="linh vật" />
       </div>
 
       <el-main class="auth-main">
         <div class="glass-stage">
-          <div class="glass-card" role="form" aria-label="Retrieve password form">
+          <div class="glass-card" role="form" aria-label="Biểu mẫu khôi phục mật khẩu">
             <div class="card-top-icon">
               <i class="el-icon-lock"></i>
             </div>
@@ -41,24 +41,24 @@
                     </el-select>
                   </div>
                   <div class="input-box input-box-soft mobile-input-box">
-                    <img loading="lazy" alt="phone" class="input-icon" src="@/assets/login/phone.png" />
+                    <img loading="lazy" alt="điện thoại" class="input-icon" src="@/assets/login/phone.png" />
                     <el-input v-model="form.mobile" :placeholder="$t('retrievePassword.mobilePlaceholder')" class="transparent-input" />
                   </div>
                 </div>
 
                 <div class="captcha-shell">
                   <div class="input-box input-box-soft captcha-input-box">
-                    <img loading="lazy" alt="shield" class="input-icon" src="@/assets/login/shield.png" />
+                    <img loading="lazy" alt="bảo mật" class="input-icon" src="@/assets/login/shield.png" />
                     <el-input v-model="form.captcha" :placeholder="$t('retrievePassword.captchaPlaceholder')" class="transparent-input" />
                   </div>
                   <div class="captcha-image" v-if="captchaUrl" @click="fetchCaptcha">
-                    <img :src="captchaUrl" alt="captcha" />
+                    <img :src="captchaUrl" alt="mã xác minh" />
                   </div>
                 </div>
 
                 <div class="captcha-shell sms-shell">
                   <div class="input-box input-box-soft captcha-input-box">
-                    <img loading="lazy" alt="phone" class="input-icon" src="@/assets/login/phone.png" />
+                    <img loading="lazy" alt="điện thoại" class="input-icon" src="@/assets/login/phone.png" />
                     <el-input v-model="form.mobileCaptcha" :placeholder="$t('retrievePassword.mobileCaptchaPlaceholder')" class="transparent-input" maxlength="6" />
                   </div>
                   <el-button type="primary" class="send-captcha-btn" :disabled="!canSendMobileCaptcha" @click="sendMobileCaptcha">
@@ -67,12 +67,12 @@
                 </div>
 
                 <div class="input-box input-box-soft">
-                  <img loading="lazy" alt="password" class="input-icon" src="@/assets/login/password.png" />
+                  <img loading="lazy" alt="mật khẩu" class="input-icon" src="@/assets/login/password.png" />
                   <el-input v-model="form.newPassword" :placeholder="$t('retrievePassword.newPasswordPlaceholder')" type="password" show-password class="transparent-input" />
                 </div>
 
                 <div class="input-box input-box-soft">
-                  <img loading="lazy" alt="password" class="input-icon" src="@/assets/login/password.png" />
+                  <img loading="lazy" alt="mật khẩu" class="input-icon" src="@/assets/login/password.png" />
                   <el-input v-model="form.confirmPassword" :placeholder="$t('retrievePassword.confirmNewPasswordPlaceholder')" type="password" show-password class="transparent-input" />
                 </div>
 

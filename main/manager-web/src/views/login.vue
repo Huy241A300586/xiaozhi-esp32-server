@@ -19,19 +19,19 @@
 
  <!-- Mascots around the card (illustrative) -->
  <div class="mascot mascot-top-right">
- <img loading="lazy" src="@/assets/login/hi.png" alt="mascot" />
+ <img loading="lazy" src="@/assets/login/hi.png" alt="linh vật" />
  </div>
  <div class="mascot mascot-left">
- <img loading="lazy" src="@/assets/login/hi.png" alt="mascot" />
+ <img loading="lazy" src="@/assets/login/hi.png" alt="linh vật" />
  </div>
  <div class="mascot mascot-bottom-right">
- <img loading="lazy" src="@/assets/login/hi.png" alt="mascot" />
+ <img loading="lazy" src="@/assets/login/hi.png" alt="linh vật" />
  </div>
 
  <el-main class="auth-main">
  <!-- Centered glass card that matches the mockup -->
  <div class="glass-stage">
- <div class="glass-card" @keyup.enter="login" role="form" aria-label="Login form">
+ <div class="glass-card" @keyup.enter="login" role="form" aria-label="Biểu mẫu đăng nhập">
  <!-- subtle user icon above card (circular) -->
  <div class="card-top-icon">
  <i class="el-icon-user"></i>
@@ -44,7 +44,7 @@
  <div class="glass-form">
  <!-- username or mobile -->
  <div v-if="!isMobileLogin" class="input-box input-box-soft">
- <img loading="lazy" alt="user" class="input-icon" src="@/assets/login/username.png" />
+ <img loading="lazy" alt="người dùng" class="input-icon" src="@/assets/login/username.png" />
  <el-input
  v-model="form.username"
  :placeholder="$t('login.usernamePlaceholder')"
@@ -64,14 +64,14 @@
  </el-select>
  </div>
  <div class="input-box input-box-soft mobile-input-box">
- <img loading="lazy" alt="phone" class="input-icon" src="@/assets/login/phone.png" />
+ <img loading="lazy" alt="điện thoại" class="input-icon" src="@/assets/login/phone.png" />
  <el-input v-model="form.mobile" :placeholder="$t('login.mobilePlaceholder')" class="transparent-input" />
  </div>
  </div>
 
  <!-- password -->
  <div class="input-box input-box-soft">
- <img loading="lazy" alt="password" class="input-icon" src="@/assets/login/password.png" />
+ <img loading="lazy" alt="mật khẩu" class="input-icon" src="@/assets/login/password.png" />
  <el-input
  v-model="form.password"
  :placeholder="$t('login.passwordPlaceholder')"
@@ -84,11 +84,11 @@
  <!-- captcha row -->
  <div class="captcha-shell">
  <div class="input-box input-box-soft captcha-input-box">
- <img loading="lazy" alt="shield" class="input-icon" src="@/assets/login/shield.png" />
+ <img loading="lazy" alt="bảo mật" class="input-icon" src="@/assets/login/shield.png" />
  <el-input v-model="form.captcha" :placeholder="$t('login.captchaPlaceholder')" class="transparent-input" />
  </div>
- <div class="captcha-image" v-if="captchaUrl" @click="fetchCaptcha" role="button" aria-label="Refresh captcha">
- <img :src="captchaUrl" alt="captcha" />
+ <div class="captcha-image" v-if="captchaUrl" @click="fetchCaptcha" role="button" aria-label="Làm mới mã xác minh">
+ <img :src="captchaUrl" alt="mã xác minh" />
  </div>
  </div>
 
@@ -99,7 +99,7 @@
  </div>
 
  <!-- login button -->
- <div class="login-btn" @click="login" role="button" aria-label="Login">
+ <div class="login-btn" @click="login" role="button" aria-label="Đăng nhập">
  {{ $t("login.login") }}
  </div>
 
