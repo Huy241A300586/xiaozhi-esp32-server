@@ -287,7 +287,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .banner-section {
-  background: linear-gradient(145deg, #9ebbfc, #6baaff, #9ebbfc, #f5f8fd);
+  background: linear-gradient(145deg, #dbe9ff 0%, #8dbdff 38%, #6baaff 68%, #edf4ff 100%);
   position: relative;
   padding: 40rpx 40rpx 80rpx 40rpx;
   overflow: hidden;
@@ -321,20 +321,21 @@ onMounted(() => {
       display: block;
       font-size: 48rpx;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--deskbot-color-primary-strong);
       margin-bottom: 16rpx;
-      text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+      text-shadow: none;
+      font-family: var(--deskbot-font-body);
     }
 
     .subtitle {
       display: block;
       font-size: 32rpx;
-      color: rgba(255, 255, 255, 0.9);
+      color: var(--deskbot-color-text);
       margin-bottom: 12rpx;
       font-weight: 500;
 
       .highlight {
-        color: #ffd700;
+        color: #0957de;
         font-weight: 600;
       }
     }
@@ -387,7 +388,7 @@ onMounted(() => {
 
 // 内容区域开始标识，创建白色背景过渡
 .content-section-header {
-  background: #ffffff;
+  background: rgba(255,255,255,0.86);
   border-radius: 32rpx 32rpx 0 0;
   margin-top: -32rpx;
   height: 32rpx;
@@ -397,7 +398,7 @@ onMounted(() => {
 
 // z-paging内容区域样式
 :deep(.z-paging-content) {
-  background: #ffffff;
+  background: rgba(255,255,255,0.86);
   padding: 0 0 40rpx 0;
 }
 
@@ -412,13 +413,13 @@ onMounted(() => {
   :deep(.wd-swipe-action) {
     border-radius: 16rpx;
     overflow: hidden;
-    box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
-    border: 1rpx solid #f0f0f0;
+    box-shadow: var(--deskbot-shadow-card);
+    border: 1rpx solid var(--deskbot-color-border);
   }
 }
 
 .simple-card {
-  background: #ffffff;
+  background: rgba(255,255,255,0.86);
   padding: 24rpx;
   cursor: pointer;
   transition: all 0.2s ease;

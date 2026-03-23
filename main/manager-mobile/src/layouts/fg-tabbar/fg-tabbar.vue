@@ -66,3 +66,30 @@ onLoad(() => {
     </block>
   </wd-tabbar>
 </template>
+
+
+<style scoped lang="scss">
+:deep(.wd-tabbar) {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(18rpx);
+  border-top: 1rpx solid var(--deskbot-color-border);
+  box-shadow: 0 -12rpx 32rpx rgba(34, 48, 84, 0.08);
+}
+
+:deep(.wd-tabbar-item) {
+  color: #7f8ea8;
+  font-family: var(--deskbot-font-ui);
+}
+
+:deep(.wd-tabbar-item.is-active) {
+  color: var(--deskbot-color-primary);
+}
+
+.is-active {
+  color: var(--deskbot-color-primary);
+}
+
+.is-inactive {
+  color: #7f8ea8;
+}
+</style>

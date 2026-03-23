@@ -280,7 +280,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <view class="app-container box-border h-screen w-full" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
+  <view class="app-container deskbot-shell box-border h-screen w-full" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
     <view class="header">
       <view class="logo-section">
         <wd-img :width="80" :height="80" round src="/static/logo.png" class="logo" />
@@ -498,7 +498,10 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .app-container {
-  background: linear-gradient(145deg, #f5f8fd, #6baaff, #9ebbfc, #f5f8fd);
+  background:
+    radial-gradient(circle at top left, rgba(107, 170, 255, 0.24), transparent 32%),
+    radial-gradient(circle at top right, rgba(9, 87, 222, 0.16), transparent 28%),
+    linear-gradient(180deg, #f7f9fd 0%, #eef3fb 100%);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -545,18 +548,19 @@ onMounted(async () => {
 
     .welcome-text {
       display: block;
-      color: #ffffff;
-      font-size: 40rpx;
-      font-weight: 600;
+      color: var(--deskbot-color-primary-strong);
+      font-size: 48rpx;
+      font-weight: 800;
+      font-family: var(--deskbot-font-body);
       margin-bottom: 12rpx;
       text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
     }
 
     .subtitle {
       display: block;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 26rpx;
-      font-weight: 400;
+      color: var(--deskbot-color-text-soft);
+      font-size: 28rpx;
+      font-weight: 500;
     }
   }
 }
@@ -569,12 +573,12 @@ onMounted(async () => {
 
   .form {
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 24rpx;
+    background: var(--deskbot-color-surface);
+    border-radius: var(--deskbot-radius-card);
     padding: 40rpx 30rpx 30rpx 30rpx;
     backdrop-filter: blur(10rpx);
-    box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.1);
-    border: 1rpx solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--deskbot-shadow-card);
+    border: 1rpx solid var(--deskbot-color-border);
     max-height: calc(100vh - 350rpx);
     overflow-y: auto;
 
@@ -585,15 +589,15 @@ onMounted(async () => {
         position: relative;
         border-radius: 16rpx;
         padding: 20rpx 16rpx;
-        border: 2rpx solid #e9ecef;
+        border: 2rpx solid rgba(125, 152, 196, 0.18);
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
 
         &:focus-within {
-          border-color: #667eea;
+          border-color: #0957de;
           background: #ffffff;
-          box-shadow: 0 0 0 6rpx rgba(102, 126, 234, 0.1);
+          box-shadow: 0 0 0 6rpx rgba(9, 87, 222, 0.08);
         }
 
         &.captcha-wrapper {
@@ -631,10 +635,10 @@ onMounted(async () => {
 
           .area-code-selector {
             flex: 0 0 160rpx;
-            background: #f8f9fa;
+            background: rgba(255,255,255,0.78);
             border-radius: 16rpx;
             padding: 20rpx 16rpx;
-            border: 2rpx solid #e9ecef;
+            border: 2rpx solid rgba(125, 152, 196, 0.18);
             height: 45rpx;
             display: flex;
             align-items: center;
@@ -643,36 +647,36 @@ onMounted(async () => {
             transition: all 0.3s ease;
 
             &:hover {
-              border-color: #667eea;
+              border-color: #0957de;
               background: #ffffff;
-              box-shadow: 0 0 0 6rpx rgba(102, 126, 234, 0.1);
+              box-shadow: 0 0 0 6rpx rgba(9, 87, 222, 0.08);
             }
 
             .area-code-text {
               font-size: 28rpx;
-              color: #333333;
+              color: var(--deskbot-color-text);
               font-weight: 500;
             }
 
             :deep(.area-code-arrow) {
               font-size: 24rpx;
-              color: #999999;
+              color: #7f8ea8;
               transition: transform 0.3s ease;
             }
           }
 
           .mobile-input-wrapper {
             flex: 1;
-            background: #f8f9fa;
+            background: rgba(255,255,255,0.78);
             border-radius: 16rpx;
             padding: 20rpx 16rpx;
-            border: 2rpx solid #e9ecef;
+            border: 2rpx solid rgba(125, 152, 196, 0.18);
             transition: all 0.3s ease;
 
             &:focus-within {
-              border-color: #667eea;
+              border-color: #0957de;
               background: #ffffff;
-              box-shadow: 0 0 0 6rpx rgba(102, 126, 234, 0.1);
+              box-shadow: 0 0 0 6rpx rgba(9, 87, 222, 0.08);
             }
           }
         }
@@ -682,11 +686,11 @@ onMounted(async () => {
           border: none !important;
           outline: none !important;
           font-size: 32rpx;
-          color: #333333;
+          color: var(--deskbot-color-text);
           flex: 1;
 
           &::placeholder {
-            color: #999999;
+            color: #7f8ea8;
             font-size: 28rpx;
           }
         }
@@ -708,7 +712,7 @@ onMounted(async () => {
       margin-bottom: 30rpx;
 
       .policy-link {
-        color: #667eea;
+        color: #0957de;
         font-size: 26rpx;
         cursor: pointer;
 
@@ -718,14 +722,14 @@ onMounted(async () => {
       }
 
       .policy-divider {
-        color: #999999;
+        color: #7f8ea8;
         font-size: 26rpx;
       }
     }
 
     .forgot-password {
       .forgot-text {
-        color: #667eea;
+        color: #0957de;
         font-size: 26rpx;
         cursor: pointer;
 
@@ -744,7 +748,7 @@ onMounted(async () => {
       font-weight: 600;
       color: #ffffff;
       margin-bottom: 30rpx;
-      box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.3);
+      box-shadow: 0 14rpx 30rpx rgba(9, 87, 222, 0.24);
       transition: all 0.3s ease;
       background-color: var(--wot-button-primary-bg-color, var(--wot-color-theme, #4d80f0));
       text-align: center;
@@ -762,7 +766,7 @@ onMounted(async () => {
 
     .register-hint {
       .register-link {
-        color: #667eea;
+        color: #0957de;
         font-size: 26rpx;
         font-weight: 500;
         cursor: pointer;
@@ -798,7 +802,7 @@ onMounted(async () => {
           &.active {
             background: #667eea;
             color: #ffffff;
-            border-color: #667eea;
+            border-color: #0957de;
             box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
           }
 
@@ -832,17 +836,17 @@ onMounted(async () => {
     .sheet-title {
       font-size: 36rpx;
       font-weight: 600;
-      color: #333333;
+      color: var(--deskbot-color-text);
     }
 
     :deep(.close-icon) {
       font-size: 32rpx;
-      color: #999999;
+      color: #7f8ea8;
       cursor: pointer;
       padding: 10rpx;
 
       &:hover {
-        color: #333333;
+        color: var(--deskbot-color-text);
       }
     }
   }
@@ -868,12 +872,12 @@ onMounted(async () => {
         background-color: rgba(102, 126, 234, 0.05);
 
         .area-name {
-          color: #667eea;
+          color: #0957de;
           font-weight: 500;
         }
 
         .area-code {
-          color: #667eea;
+          color: #0957de;
         }
       }
 
@@ -884,7 +888,7 @@ onMounted(async () => {
 
         .area-name {
           font-size: 32rpx;
-          color: #333333;
+          color: var(--deskbot-color-text);
         }
 
         .area-code {
@@ -895,7 +899,7 @@ onMounted(async () => {
 
       :deep(.check-icon) {
         font-size: 32rpx;
-        color: #667eea;
+        color: #0957de;
       }
     }
   }
@@ -931,7 +935,7 @@ onMounted(async () => {
   justify-content: center;
   cursor: pointer;
   background: rgba(255, 255, 255, 0.15);
-  border-radius: 24rpx;
+  border-radius: var(--deskbot-radius-card);
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
 
   &:active {
@@ -957,7 +961,7 @@ onMounted(async () => {
   justify-content: center;
   cursor: pointer;
   background: rgba(255, 255, 255, 0.15);
-  border-radius: 24rpx;
+  border-radius: var(--deskbot-radius-card);
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
 
   &:active {
@@ -1002,7 +1006,7 @@ onMounted(async () => {
 
       .language-name {
         font-size: 32rpx;
-        color: #333333;
+        color: var(--deskbot-color-text);
       }
     }
   }
