@@ -1,6 +1,6 @@
-const HAVE_NO_RESULT = '暂无'
+const HAVE_NO_RESULT = 'Chưa có dữ liệu'
 export default {
-    HAVE_NO_RESULT, // 项目的配置信息
+    HAVE_NO_RESULT, // thông tin cấu hình của dự án
     PAGE: {
         LOGIN: '/login',
     },
@@ -15,7 +15,7 @@ export default {
     FONT_SIZE: {
         'big': 'big',
         'normal': 'normal',
-    }, // 获取map中的某key
+    }, // lấy một key trong map
     get(map, key) {
         return map[key] || HAVE_NO_RESULT
     }

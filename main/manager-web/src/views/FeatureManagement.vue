@@ -113,7 +113,7 @@ export default {
       pendingChanges: false,
       featureManagementFeatures: [],
       voiceManagementFeatures: [],
-      isSaving: false // 添加保存状态锁定
+      isSaving: false // thêm khóa trạng thái lưu
     }
   },
   computed: {
@@ -135,7 +135,7 @@ export default {
       await this.loadFeatures()
       this.setupConfigChangeListener()
     } catch (error) {
-      console.error('功能配置管理器初始化等待失败:', error)
+      console.error('Chờ khởi tạo bộ quản lý cấu hình tính năng thất bại:', error)
       await this.loadFeatures()
       this.setupConfigChangeListener()
     }
@@ -162,7 +162,7 @@ export default {
         
         return result
       } catch (error) {
-        console.error('获取功能配置失败:', error)
+        console.error('Lấy cấu hình tính năng thất bại:', error)
         // 如果获取失败，返回默认配置
         return featureIds.map(id => ({
           id: id,
@@ -238,7 +238,7 @@ export default {
           this.loadFeatures()
         }, 1000)
       } catch (error) {
-        console.error('保存配置失败:', error)
+        console.error('Lưu cấu hình thất bại:', error)
         this.$message.error({
           message: this.$t('featureManagement.saveError'),
           showClose: true

@@ -39,9 +39,9 @@ const cdnResources = {
 const useCDN = process.env.VUE_APP_USE_CDN === 'true';
 
 module.exports = defineConfig({
-  productionSourceMap: process.env.NODE_ENV !=='production', // 生产环境不生成 source map
+  productionSourceMap: process.env.NODE_ENV !=='production', // không tạo source map ở môi trường production
   devServer: {
-    port: 8001, // 指定端口为 8001
+    port: 8001, // đặt cổng là 8001
     proxy: {
       '/xiaozhi': {
         target: 'http://127.0.0.1:8002',
@@ -49,7 +49,7 @@ module.exports = defineConfig({
       }
     },
     client: {
-      overlay: false, // 不显示 webpack 错误覆盖层
+      overlay: false, // không hiển thị lớp phủ lỗi webpack
     },
   },
   publicPath: process.env.VUE_APP_PUBLIC_PATH || "/",
@@ -150,23 +150,23 @@ module.exports = defineConfig({
         config.externals = {};
       }
 
-      if (process.env.ANALYZE === 'true') {  // 通过环境变量控制
+      if (process.env.ANALYZE === 'true') {  // điều khiển bằng biến môi trường
         config.plugins.push(
           new BundleAnalyzerPlugin({
-            analyzerMode: 'server',    // 开启本地服务器模式
-            openAnalyzer: true,        // 自动打开浏览器
-            analyzerPort: 8888         // 指定端口号
+            analyzerMode: 'server',    // bật chế độ máy chủ cục bộ
+            openAnalyzer: true,        // tự động mở trình duyệt
+            analyzerPort: 8888         // chỉ định số cổng
           })
         );
       }
       config.cache = {
-        type: 'filesystem',  // 使用文件系统缓存
-        cacheDirectory: path.resolve(__dirname, '.webpack_cache'),  // 自定义缓存目录
-        allowCollectingMemory: true,  // 启用内存收集
-        compression: 'gzip',  // 启用gzip压缩缓存
-        maxAge: 5184000000, // 缓存有效期为 1个月
+        type: 'filesystem',  // dùng cache filesystem
+        cacheDirectory: path.resolve(__dirname, '.webpack_cache'),  // thư mục cache tùy chỉnh
+        allowCollectingMemory: true,  // bật thu gom bộ nhớ
+        compression: 'gzip',  // bật cache nén gzip
+        maxAge: 5184000000, // thời hạn cache 1 tháng
         buildDependencies: {
-          config: [__filename]  // 每次配置文件修改时缓存失效
+          config: [__filename]  // mất hiệu lực cache khi file config thay đổi
         }
       };
     }

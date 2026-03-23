@@ -13,7 +13,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取音色列表失败:', err);
+                console.error('Lấy danh sách giọng thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getVoiceCloneList(params, callback);
                 });
@@ -31,7 +31,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('上传音频失败:', err);
+                console.error('Tải âm thanh lên thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.uploadVoice(formData, callback);
                 });
@@ -49,7 +49,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('更新名称失败:', err);
+                console.error('Cập nhật tên thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.updateName(params, callback);
                 });
@@ -66,7 +66,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取音频ID失败:', err);
+                console.error('Lấy ID âm thanh thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getAudioId(id, callback);
                 });
@@ -98,7 +98,7 @@ export default {
                 }
             })
             .networkFail((err) => {
-                console.error('上传失败:', err);
+                console.error('Tải lên thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.cloneAudio(params, callback, errorCallback);
                 });

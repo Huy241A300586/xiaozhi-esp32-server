@@ -151,7 +151,7 @@ export default {
         }
         this.isLoading = false;
       }, (error) => {
-        console.error('搜索智能体失败:', error);
+        console.error('Tìm kiếm tác tử AI thất bại:', error);
         this.isLoading = false;
         this.$message.error(this.$t('message.searchFailed'));
       });
@@ -186,7 +186,7 @@ export default {
       });
     },
     handleDeleteAgent(agentId) {
-      this.$confirm(this.$t('home.confirmDeleteAgent'), '提示', {
+      this.$confirm(this.$t('home.confirmDeleteAgent'), 'Thông báo', {
         confirmButtonText: this.$t('button.ok'),
         cancelButtonText: this.$t('button.cancel'),
         type: 'warning'

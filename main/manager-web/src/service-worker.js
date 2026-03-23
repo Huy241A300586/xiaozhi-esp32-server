@@ -25,12 +25,12 @@ const CDN_JS = [
 // 当Service Worker被注入manifest后会自动执行
 const manifest = self.__WB_MANIFEST || [];
 
-// 检查是否启用CDN模式
+// 检查是否BậtCDN模式
 const isCDNEnabled = manifest.some(entry => 
   entry.url === 'cdn-mode' && entry.revision === 'enabled'
 );
 
-console.log(`Service Worker 已初始化, CDN模式: ${isCDNEnabled ? '启用' : '禁用'}`);
+console.log(`Service Worker đã khởi tạo, chế độ CDN: ${isCDNEnabled ? 'Bật' : 'Tắt'}`);
 
 // 注入workbox相关代码
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js');
@@ -49,9 +49,9 @@ workbox.precaching.precacheAndRoute([
 // 添加安装完成事件处理器，在控制台显示安装消息
 self.addEventListener('install', event => {
   if (isCDNEnabled) {
-    console.log('Service Worker 已安装，开始缓存CDN资源');
+    console.log('Service Worker đã được cài đặt, bắt đầu lưu cache tài nguyên CDN');
   } else {
-    console.log('Service Worker 已安装，CDN模式禁用，仅缓存本地资源');
+    console.log('Service Worker đã được cài đặt, chế độ CDN đang tắt, chỉ lưu cache tài nguyên cục bộ');
   }
   
   // 确保离线页面被缓存
@@ -64,7 +64,7 @@ self.addEventListener('install', event => {
 
 // 添加激活事件处理器
 self.addEventListener('activate', event => {
-  console.log('Service Worker 已激活，现在控制着页面');
+  console.log('Service Worker đã kích hoạt và đang kiểm soát trang');
   
   // 清理旧版本缓存
   event.waitUntil(
@@ -83,14 +83,14 @@ self.addEventListener('activate', event => {
 
 // 添加fetch事件拦截器，用于查看CDN资源是否命中缓存
 self.addEventListener('fetch', event => {
-  // 只有启用CDN模式时才进行CDN资源缓存监控
+  // 只有BậtCDN模式时才进行CDN资源缓存监控
   if (isCDNEnabled) {
     const url = new URL(event.request.url);
     
     // 针对CDN资源，输出是否命中缓存的信息
     if ([...CDN_CSS, ...CDN_JS].includes(url.href)) {
       // 不干扰正常的fetch流程，只添加日志
-      console.log(`请求CDN资源: ${url.href}`);
+      console.log(`Yêu cầu tài nguyên CDN: ${url.href}`);
     }
   }
 });
@@ -104,11 +104,11 @@ if (isCDNEnabled) {
       cacheName: 'cdn-stylesheets',
       plugins: [
         new workbox.expiration.ExpirationPlugin({
-          maxAgeSeconds: 365 * 24 * 60 * 60, // 增加到1年缓存
-          maxEntries: 10, // 最多缓存10个CSS文件
+          maxAgeSeconds: 365 * 24 * 60 * 60, // tăng thời gian cache lên 1 năm
+          maxEntries: 10, // cache tối đa 10 file CSS
         }),
         new workbox.cacheableResponse.CacheableResponsePlugin({
-          statuses: [0, 200], // 缓存成功响应
+          statuses: [0, 200], // phản hồi được cache thành công
         }),
       ],
     })
@@ -121,26 +121,26 @@ if (isCDNEnabled) {
       cacheName: 'cdn-scripts',
       plugins: [
         new workbox.expiration.ExpirationPlugin({
-          maxAgeSeconds: 365 * 24 * 60 * 60, // 增加到1年缓存
-          maxEntries: 20, // 最多缓存20个JS文件
+          maxAgeSeconds: 365 * 24 * 60 * 60, // tăng thời gian cache lên 1 năm
+          maxEntries: 20, // cache tối đa 20 file JS
         }),
         new workbox.cacheableResponse.CacheableResponsePlugin({
-          statuses: [0, 200], // 缓存成功响应
+          statuses: [0, 200], // phản hồi được cache thành công
         }),
       ],
     })
   );
 }
 
-// 无论是否启用CDN模式，都缓存本地静态资源
+// 无论是否BậtCDN模式，都缓存本地静态资源
 workbox.routing.registerRoute(
   /\.(?:js|css|png|jpg|jpeg|svg|gif|ico|woff|woff2|eot|ttf|otf)$/,
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'static-resources',
     plugins: [
       new workbox.expiration.ExpirationPlugin({
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7天缓存
-        maxEntries: 50, // 最多缓存50个文件
+        maxAgeSeconds: 7 * 24 * 60 * 60, // cache 7 ngày
+        maxEntries: 50, // cache tối đa 50 file
       }),
     ],
   })
@@ -153,8 +153,8 @@ workbox.routing.registerRoute(
     cacheName: 'html-cache',
     plugins: [
       new workbox.expiration.ExpirationPlugin({
-        maxAgeSeconds: 1 * 24 * 60 * 60, // 1天缓存
-        maxEntries: 10, // 最多缓存10个HTML文件
+        maxAgeSeconds: 1 * 24 * 60 * 60, // cache 1 ngày
+        maxEntries: 10, // cache tối đa 10 file HTML
       }),
     ],
   })

@@ -187,7 +187,7 @@ export default {
         },
         (res) => {
           this.loading = false;
-          console.log('getKnowledgeBaseList response:', res); // 添加调试日志
+          console.log('getKnowledgeBaseList response:', res); // log debug
           
           // 修复：从 res.data 获取分页数据，而不是 res.data.data
           // 因为 knowledgeBase.js 直接传递了整个响应对象
@@ -195,7 +195,7 @@ export default {
             const pageData = res.data.data || {};
             this.knowledgeBaseList = pageData.list || [];
             this.total = pageData.total || 0;
-            console.log('Updated knowledgeBaseList:', this.knowledgeBaseList); // 添加调试日志
+            console.log('Updated knowledgeBaseList:', this.knowledgeBaseList); // log debug
           } else {
             this.$message.error({
               message: res.data?.msg || this.$t('knowledgeBaseManagement.getKnowledgeBaseListFailed'),
@@ -287,7 +287,7 @@ export default {
           console.log('Error callback received:', err);
           // 错误回调处理后端返回的错误信息
           if (err && err.data) {
-            console.log('后端返回错误消息:', err.data.msg || err.msg);
+            console.log('Backend trả về thông báo lỗi:', err.data.msg || err.msg);
             this.$message.error(err.data.msg || err.msg || this.$t('knowledgeBaseManagement.updateFailed'));
           } else {
             this.$message.error(this.$t('knowledgeBaseManagement.updateFailed'));
@@ -315,7 +315,7 @@ export default {
           console.log('Error callback received:', err);
           // 错误回调处理后端返回的错误信息
           if (err && err.data) {
-            console.log('后端返回错误消息:', err.data.msg || err.msg);
+            console.log('Backend trả về thông báo lỗi:', err.data.msg || err.msg);
             this.$message.error(err.data.msg || err.msg || this.$t('knowledgeBaseManagement.addFailed'));
           } else {
             this.$message.error(this.$t('knowledgeBaseManagement.addFailed'));
@@ -349,7 +349,7 @@ export default {
           console.log('Error callback received:', err);
           // 错误回调处理后端返回的错误信息
           if (err && err.data) {
-            console.log('后端返回错误消息:', err.data.msg || err.msg);
+            console.log('Backend trả về thông báo lỗi:', err.data.msg || err.msg);
             this.$message.error(err.data.msg || err.msg || this.$t('knowledgeBaseManagement.deleteFailed'));
           } else {
             this.$message.error(this.$t('knowledgeBaseManagement.deleteFailed'));
@@ -383,7 +383,7 @@ export default {
           console.log('Error callback received:', err);
           // 错误回调处理后端返回的错误信息
           if (err && err.data) {
-            console.log('后端返回错误消息:', err.data.msg || err.msg);
+            console.log('Backend trả về thông báo lỗi:', err.data.msg || err.msg);
             this.$message.error(err.data.msg || err.msg || this.$t('knowledgeBaseManagement.deleteFailed'));
           } else {
             this.$message.error(this.$t('knowledgeBaseManagement.deleteFailed'));
@@ -400,15 +400,15 @@ export default {
     handleStatusChange: function(row) {
       // 只传递需要更新的字段，确保包含id字段
       const updateForm = {
-        id: row.id, // 添加id字段，后端需要此字段来定位记录
+        id: row.id, // thêm id để backend định vị bản ghi
         datasetId: row.datasetId,
         name: row.name,
         description: row.description,
         status: row.status
       };
-      console.log('Updating knowledge base status:', updateForm); // 添加调试日志
+      console.log('Updating knowledge base status:', updateForm); // log debug
       Api.knowledgeBase.updateKnowledgeBase(row.datasetId, updateForm, (res) => {
-        console.log('Status update response:', res); // 添加调试日志
+        console.log('Status update response:', res); // log debug
         if (res.data && res.data.code !== 0) {
           // 恢复原来的状态
           this.fetchKnowledgeBaseList();

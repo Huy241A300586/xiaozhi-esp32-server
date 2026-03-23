@@ -161,7 +161,7 @@ export default {
  return "vi";
  },
  currentLanguageText() {
- return this.$t("language.vi");
+      return this.$t("language.vi");
  },
  },
  data() {
@@ -208,7 +208,7 @@ export default {
  const blob = new Blob([res.data], { type: res.data.type });
  this.captchaUrl = URL.createObjectURL(blob);
  } else {
- showDanger("验证码加载失败，点击刷新");
+ showDanger("Tải mã captcha thất bại, vui lòng bấm để làm mới");
  }
  });
  }
@@ -277,7 +277,7 @@ export default {
  this.$store.commit("setUserInfo", data.data);
  goToPage("/home");
  } else {
- showDanger("用户信息获取失败");
+ showDanger("Lấy thông tin người dùng thất bại");
  }
  });
  },
@@ -305,7 +305,7 @@ export default {
  const captchaAndPassword = this.form.captcha + this.form.password;
  encryptedPassword = sm2Encrypt(this.sm2PublicKey, captchaAndPassword);
  } catch (error) {
- console.error("密码加密失败:", error);
+ console.error("Mã hóa mật khẩu thất bại:", error);
  showDanger(this.$t('sm2.encryptionFailed'));
  return;
  }
@@ -326,7 +326,7 @@ export default {
  this.getUserInfo();
  },
  (err) => {
- let errorMessage = err.data.msg || "登录失败";
+ let errorMessage = err.data.msg || "Đăng nhập thất bại";
  showDanger(errorMessage);
  }
  );

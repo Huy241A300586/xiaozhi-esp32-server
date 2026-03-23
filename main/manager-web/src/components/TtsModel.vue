@@ -141,7 +141,7 @@ export default {
       selectAll: false,
       selectedRows: [],
       loading: false,
-      showReferenceColumns: false, // 控制是否显示参考列
+      showReferenceColumns: false, // điều khiển việc hiển thị cột tham chiếu
     };
   },
   watch: {
@@ -149,8 +149,8 @@ export default {
       this.localVisible = newVal;
       if (newVal) {
         this.currentPage = 1;
-        this.updateShowReferenceColumns(); // 更新显示状态
-        this.loadData(); // 对话框显示时加载数据
+        this.updateShowReferenceColumns(); // cập nhật trạng thái hiển thị
+        this.loadData(); // tải dữ liệu khi dialog hiển thị
         this.$nextTick(() => {
           this.updateScrollbar();
         });
@@ -231,7 +231,7 @@ export default {
         }
         this.loading = false;
       }, (err) => {
-        console.error('加载失败:', err);
+        console.error('Tải thất bại:', err);
         this.$message.error({
           message: this.$t('ttsModel.loadVoiceDataFailed'),
           showClose: true
@@ -399,7 +399,7 @@ export default {
           });
         }
       } catch (error) {
-        console.error('操作失败:', error);
+        console.error('Thao tác thất bại:', error);
         // 异常情况下也恢复原始数据
         if (row.originalData) {
           Object.assign(row, row.originalData);
@@ -421,7 +421,7 @@ export default {
         });
         row.editing = false;
         delete row.originalData;
-        this.loadData(); // 刷新数据
+        this.loadData(); // làm mới dữ liệu
       } else {
         // 保存失败时恢复原始数据
         if (row.originalData) {
@@ -464,7 +464,7 @@ export default {
         referenceText: '',
         selected: false,
         editing: true,
-        sort: 0 // 新增数据默认排序在顶部
+        sort: 0 // dữ liệu mới mặc định xếp ở đầu
       };
 
       this.ttsModels.unshift(newRow);
@@ -499,7 +499,7 @@ export default {
               message: this.$t('ttsModel.deleteVoiceSuccess', {count: voiceCount}),
               showClose: true
             });
-            this.loadData(); // 刷新参数列表
+            this.loadData(); // làm mới danh sách tham số
           } else {
             this.$message.error({
               message: data.msg || this.$t('ttsModel.deleteFailed'),

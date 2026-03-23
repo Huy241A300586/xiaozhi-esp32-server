@@ -13,7 +13,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取OTA固件列表失败:', err);
+                console.error('Lấy danh sách firmware OTA thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getOtaList(params, callback);
                 });
@@ -29,7 +29,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取OTA固件信息失败:', err);
+                console.error('Lấy thông tin firmware OTA thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getOtaInfo(id, callback);
                 });
@@ -46,7 +46,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('保存OTA固件信息失败:', err);
+                console.error('Lưu thông tin firmware OTA thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.saveOta(entity, callback);
                 });
@@ -63,7 +63,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('更新OTA固件信息失败:', err);
+                console.error('Cập nhật thông tin firmware OTA thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.updateOta(id, entity, callback);
                 });
@@ -79,7 +79,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('删除OTA固件失败:', err);
+                console.error('Xóa firmware OTA thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.deleteOta(id, callback);
                 });
@@ -98,7 +98,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('上传固件文件失败:', err);
+                console.error('Tải tệp firmware lên thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.uploadFirmware(file, callback);
                 });
@@ -114,7 +114,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取下载链接失败:', err);
+                console.error('Lấy liên kết tải xuống thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getDownloadUrl(id, callback);
                 });

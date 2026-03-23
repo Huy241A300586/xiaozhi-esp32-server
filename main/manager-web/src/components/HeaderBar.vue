@@ -168,7 +168,7 @@
 
         <img loading="lazy" alt="" src="@/assets/home/avatar.png" class="avatar-img" @click="handleAvatarClick" />
         <span class="el-user-dropdown" @click="handleAvatarClick">
-          {{ userInfo.username || "加载中..." }}
+          {{ userInfo.username || "Đang tải..." }}
           <i class="el-icon-arrow-down el-icon--right" :class="{ 'rotate-down': userMenuVisible }"></i>
         </span>
         <el-cascader :options="userMenuOptions" trigger="click" :props="cascaderProps"
@@ -188,25 +188,25 @@
 
 <script>
 import userApi from "@/apis/module/user";
-import i18n, { changeLanguage } from "@/i18n";
+import { changeLanguage } from "@/i18n";
 import { mapActions, mapState } from "vuex";
-import ChangePasswordDialog from "./ChangePasswordDialog.vue"; // 引入修改密码弹窗组件
-import featureManager from "@/utils/featureManager"; // 引入功能管理工具类
+import ChangePasswordDialog from "./ChangePasswordDialog.vue"; // import component dialog đổi mật khẩu
+import featureManager from "@/utils/featureManager"; // import tiện ích quản lý tính năng
 
 export default {
   name: "HeaderBar",
   components: {
     ChangePasswordDialog,
   },
-  props: ["devices"], // 接收父组件设备列表
+  props: ["devices"], // nhận danh sách thiết bị từ component cha
   data() {
     return {
       search: "",
-      isChangePasswordDialogVisible: false, // 控制修改密码弹窗的显示
+      isChangePasswordDialogVisible: false, // điều khiển hiển thị dialog đổi mật khẩu
       paramDropdownVisible: false,
       voiceCloneDropdownVisible: false,
-      userMenuVisible: false, // 添加用户菜单可见状态
-      menuVisibleTimer: null, // 菜单显示定时器，防止够快触发
+      userMenuVisible: false, // thêm trạng thái hiển thị menu người dùng
+      menuVisibleTimer: null, // timer hiển thị menu để tránh trigger quá nhanh
       isSmallScreen: false,
       // 搜索历史相关
       searchHistory: [],
@@ -225,54 +225,20 @@ export default {
   computed: {
     ...mapState({
       featureStatus: (state) => ({
-        voiceClone: state.pubConfig.systemWebMenu?.features?.voiceClone?.enabled, // 音色克隆功能状态
-        knowledgeBase: state.pubConfig.systemWebMenu?.features?.knowledgeBase?.enabled, // 知识库功能状态
+        voiceClone: state.pubConfig.systemWebMenu?.features?.voiceClone?.enabled, // trạng thái tính năng nhân bản giọng
+        knowledgeBase: state.pubConfig.systemWebMenu?.features?.knowledgeBase?.enabled, // trạng thái tính năng kho tri thức
       }),
       userInfo: (state) => state.userInfo,
     }),
-    // 获取当前语言
+    // App cố định một ngôn ngữ: tiếng Việt
     currentLanguage() {
-      return i18n.locale || "zh_CN";
+      return "vi";
     },
-    // 获取当前语言显示文本
     currentLanguageText() {
-      const currentLang = this.currentLanguage;
-      switch (currentLang) {
-        case "zh_CN":
-          return this.$t("language.zhCN");
-        case "zh_TW":
-          return this.$t("language.zhTW");
-        case "en":
-          return this.$t("language.en");
-        case "de":
-          return this.$t("language.de");
-        case "vi":
-          return this.$t("language.vi");
-        case "pt_BR":
-          return this.$t("language.ptBR");
-        default:
-          return this.$t("language.zhCN");
-      }
+      return this.$t("language.vi");
     },
-    // 根据当前语言获取对应的xiaozhi-ai图标
     xiaozhiAiIcon() {
-      const currentLang = this.currentLanguage;
-      switch (currentLang) {
-        case "zh_CN":
-          return require("@/assets/xiaozhi-ai.png");
-        case "zh_TW":
-          return require("@/assets/xiaozhi-ai_zh_TW.png");
-        case "en":
-          return require("@/assets/xiaozhi-ai_en.png");
-        case "de":
-          return require("@/assets/xiaozhi-ai_de.png");
-        case "vi":
-          return require("@/assets/xiaozhi-ai_vi.png");
-        case "pt_BR":
-          return require("@/assets/xiaozhi-ai_en.png");
-        default:
-          return require("@/assets/xiaozhi-ai.png");
-      }
+      return require("@/assets/xiaozhi-ai_vi.png");
     },
     // 用户菜单选项
     userMenuOptions() {
@@ -396,7 +362,7 @@ export default {
           this.searchHistory = JSON.parse(history);
         }
       } catch (error) {
-        console.error("加载搜索历史失败:", error);
+        console.error("Tải lịch sử tìm kiếm thất bại:", error);
         this.searchHistory = [];
       }
     },
@@ -419,7 +385,7 @@ export default {
       try {
         localStorage.setItem(this.SEARCH_HISTORY_KEY, JSON.stringify(this.searchHistory));
       } catch (error) {
-        console.error("保存搜索历史失败:", error);
+        console.error("Lưu lịch sử tìm kiếm thất bại:", error);
       }
     },
 
@@ -435,7 +401,7 @@ export default {
       try {
         localStorage.setItem(this.SEARCH_HISTORY_KEY, JSON.stringify(this.searchHistory));
       } catch (error) {
-        console.error("更新搜索历史失败:", error);
+        console.error("Cập nhật lịch sử tìm kiếm thất bại:", error);
       }
     },
 
@@ -445,7 +411,7 @@ export default {
       try {
         localStorage.removeItem(this.SEARCH_HISTORY_KEY);
       } catch (error) {
-        console.error("清空搜索历史失败:", error);
+        console.error("Xóa toàn bộ lịch sử tìm kiếm thất bại:", error);
       }
     },
     // 显示修改密码弹窗
@@ -464,7 +430,7 @@ export default {
           showClose: true,
         });
       } catch (error) {
-        console.error("退出登录失败:", error);
+        console.error("Đăng xuất thất bại:", error);
         this.$message.error({
           message: this.$t("message.error"),
           showClose: true,
@@ -556,7 +522,7 @@ export default {
 
           console.log("Cascader values cleared");
         } catch (error) {
-          console.error("清空选择值失败:", error);
+          console.error("Xóa giá trị đã chọn thất bại:", error);
         }
       }
     },

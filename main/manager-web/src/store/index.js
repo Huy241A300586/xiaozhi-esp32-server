@@ -9,8 +9,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: '',
-    userInfo: {}, // 添加用户信息存储
-    pubConfig: { // 添加公共配置存储
+    userInfo: {}, // thêm store cho thông tin người dùng
+    pubConfig: { // thêm store cho cấu hình công khai
       version: '',
       beianIcpNum: 'null',
       beianGaNum: 'null',
@@ -58,7 +58,7 @@ export default new Vuex.Store({
       return new Promise((resolve) => {
         commit('clearAuth')
         goToPage(Constant.PAGE.LOGIN, true);
-        window.location.reload(); // 彻底重置状态
+        window.location.reload(); // reset trạng thái hoàn toàn
       })
     },
     // 添加获取公共配置的 action

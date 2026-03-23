@@ -149,7 +149,7 @@ export default {
       pendingProviderType: null,
       pendingModelData: null,
       dynamicCallInfoFields: [],
-      fieldJsonMap: {}, // 用于存储JSON字段的字符串形式
+      fieldJsonMap: {}, // dùng để lưu dạng chuỗi của trường JSON
       sensitive_keys: [
         "api_key",
         "personal_access_token",
@@ -159,7 +159,7 @@ export default {
         "access_key_secret",
         "secret_key",
       ],
-      originalValues: {}, // 存储原始值，用于失焦时恢复
+      originalValues: {}, // lưu giá trị gốc để khôi phục khi blur
       form: {
         id: "",
         modelType: "",
@@ -246,7 +246,7 @@ export default {
                 Object.keys(model.configJson).forEach((key) => {
                   if (this.isSensitiveField(key) && model.configJson[key]) {
                     const sensitiveName = this.getSensitiveFieldName(key);
-                    model.configJson[key] = `你的${sensitiveName}`;
+                    model.configJson[key] = `Của bạn ${sensitiveName}`;
                   }
                 });
               }
@@ -264,7 +264,7 @@ export default {
       }
     },
     handleSave() {
-      this.saving = true; // 开始保存加载
+      this.saving = true; // bắt đầu trạng thái đang lưu
 
       // 处理所有JSON字段
       Object.keys(this.fieldJsonMap).forEach((key) => {
@@ -290,7 +290,7 @@ export default {
         provideCode: this.form.configJson.type,
         formData,
         done: () => {
-          this.saving = false; // 保存完成后回调
+          this.saving = false; // callback sau khi lưu xong
         },
       });
 
@@ -330,7 +330,7 @@ export default {
                 : f.type === "password"
                   ? "password"
                   : "text",
-            placeholder: `请输入${f.key}`,
+            placeholder: `Vui lòng nhập ${f.key}`,
           }));
 
           if (this.pendingModelData && this.pendingProviderType === providerCode) {
@@ -384,13 +384,13 @@ export default {
           return parsed;
         }
         this.$message.error({
-          message: '必须输入字典格式（如 {"key":"value"}），保存则使用原数据',
+          message: 'Phải nhập đúng định dạng object (ví dụ {"key":"value"}), nếu lưu sẽ dùng dữ liệu gốc',
           showClose: true,
         });
         return null;
       } catch (e) {
         this.$message.error({
-          message: 'JSON格式错误（如 {"key":"value"}），保存则使用原数据',
+          message: 'Định dạng JSON không hợp lệ (ví dụ {"key":"value"}), nếu lưu sẽ dùng dữ liệu gốc',
           showClose: true,
         });
         return null;
@@ -418,13 +418,13 @@ export default {
     // 获取敏感字段对应的中文名称
     getSensitiveFieldName(fieldName) {
       const keyMap = {
-        api_key: "API密钥",
-        personal_access_token: "个人访问令牌",
-        access_token: "访问令牌",
-        token: "令牌",
-        secret: "密钥",
-        access_key_secret: "访问密钥",
-        secret_key: "密钥",
+        api_key: "Khóa API",
+        personal_access_token: "Personal access token",
+        access_token: "Access token",
+        token: "Token",
+        secret: "Khóa bí mật",
+        access_key_secret: "Access key secret",
+        secret_key: "Khóa bí mật",
       };
 
       for (const [key, value] of Object.entries(keyMap)) {
@@ -432,14 +432,14 @@ export default {
           return value;
         }
       }
-      return "敏感信息";
+      return "Thông tin nhạy cảm";
     },
 
     // 处理input聚焦事件
     handleInputFocus(field, value) {
       // 如果值包含星号，清空显示
       if (value && value.includes("*")) {
-        // 存储原始值，用于失焦时恢复
+        // lưu giá trị gốc để khôi phục khi blur
         this.$set(this.originalValues, field, this.form.configJson[field]);
         this.$set(this.form.configJson, field, "");
       }
@@ -451,12 +451,12 @@ export default {
       if (this.isSensitiveField(field)) {
         // 如果值为空，恢复掩码值
         if (!this.form.configJson[field] || this.form.configJson[field].trim() === "") {
-          // 如果有原始值，则恢复原始值；否则设置为掩码提示
+          // 如果有原始值，则恢复原始值；否则设置为掩码Thông báo
           if (this.originalValues[field]) {
             this.$set(this.form.configJson, field, this.originalValues[field]);
           } else {
             const sensitiveName = this.getSensitiveFieldName(field);
-            this.$set(this.form.configJson, field, `你的${sensitiveName}`);
+            this.$set(this.form.configJson, field, `Của bạn ${sensitiveName}`);
           }
           // 清除临时存储的原始值
           this.$delete(this.originalValues, field);
@@ -473,7 +473,7 @@ export default {
 
     // 处理JSON字段的失焦事件
     handleJsonInputBlur(field) {
-      // JSON字段不做特殊处理，因为它们通常不包含简单的敏感信息
+      // JSON字段不做特殊处理，因为它们通常不包含简单的Thông tin nhạy cảm
     },
   },
 };

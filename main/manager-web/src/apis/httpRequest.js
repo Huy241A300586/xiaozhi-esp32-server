@@ -26,7 +26,7 @@ function sendRequest() {
         _data: {},
         _header: { 'content-type': 'application/json; charset=utf-8' },
         _url: '',
-        _responseType: undefined, // 新增响应类型字段
+        _responseType: undefined, // thêm trường response type
         'send'() {
             // 设置语言请求头
             const currentLang = i18n.locale;
@@ -141,7 +141,7 @@ function httpHandlerError(info, failCallback, networkFailCallback) {
     if (networkFailCallback) {
         networkFailCallback(info)
     } else {
-        showDanger(`网络请求出现了错误【${info.status}】`)
+        showDanger(`Yêu cầu mạng gặp lỗi [${info.status}]`)
     }
     return true
 }
@@ -156,9 +156,9 @@ function reAjaxFun(fn) {
     }
     let ajaxIndex = parseInt((nowTimeSec - requestTime) / reAjaxSec)
     if (ajaxIndex > 10) {
-        showWarning('似乎无法连接服务器')
+        showWarning('Có vẻ không thể kết nối tới máy chủ')
     } else {
-        showWarning('正在连接服务器(' + ajaxIndex + ')')
+        showWarning('Đang kết nối tới máy chủ (' + ajaxIndex + ')')
     }
     if (ajaxIndex < 10 && fn) {
         setTimeout(() => {

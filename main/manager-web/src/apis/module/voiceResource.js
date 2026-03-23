@@ -13,7 +13,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取音色资源列表失败:', err);
+                console.error('Lấy danh sách tài nguyên giọng thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getVoiceResourceList(params, callback);
                 });
@@ -29,7 +29,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取音色资源信息失败:', err);
+                console.error('Lấy thông tin tài nguyên giọng thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getVoiceResourceInfo(id, callback);
                 });
@@ -46,7 +46,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('保存音色资源失败:', err);
+                console.error('Lưu tài nguyên giọng thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.saveVoiceResource(entity, callback);
                 });
@@ -62,7 +62,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('删除音色资源失败:', err);
+                console.error('Xóa tài nguyên giọng thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.deleteVoiceResource(ids, callback);
                 });
@@ -78,7 +78,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取用户音色资源列表失败:', err);
+                console.error('Lấy danh sách tài nguyên giọng của người dùng thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getVoiceResourceByUserId(userId, callback);
                 });
@@ -94,7 +94,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取TTS平台列表失败:', err);
+                console.error('Lấy danh sách nền tảng TTS thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getTtsPlatformList(callback);
                 });

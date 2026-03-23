@@ -14,7 +14,7 @@ export const getCacheNames = async () => {
   try {
     return await caches.keys();
   } catch (error) {
-    console.error('获取缓存名称失败:', error);
+    console.error('Lấy tên cache thất bại:', error);
     return [];
   }
 };
@@ -34,7 +34,7 @@ export const getCacheUrls = async (cacheName) => {
     const requests = await cache.keys();
     return requests.map(request => request.url);
   } catch (error) {
-    console.error(`获取缓存 ${cacheName} 的URL失败:`, error);
+    console.error(`Lấy cache ${cacheName} thất bại khi lấy URL:`, error);
     return [];
   }
 };
@@ -60,7 +60,7 @@ export const isUrlCached = async (url) => {
     }
     return false;
   } catch (error) {
-    console.error(`检查URL ${url} 是否缓存失败:`, error);
+    console.error(`Kiểm tra URL ${url} có được lưu cache hay không thất bại:`, error);
     return false;
   }
 };
@@ -93,7 +93,7 @@ export const checkCdnCacheStatus = async () => {
         results.totalCached++;
       }
     } catch (error) {
-      console.error(`获取 ${cacheName} 缓存信息失败:`, error);
+      console.error(`Lấy thông tin cache ${cacheName} thất bại:`, error);
     }
   }
   
@@ -116,7 +116,7 @@ export const clearAllCaches = async () => {
     }
     return true;
   } catch (error) {
-    console.error('清除所有缓存失败:', error);
+    console.error('Xóa toàn bộ cache thất bại:', error);
     return false;
   }
 };
@@ -125,14 +125,14 @@ export const clearAllCaches = async () => {
  * 将缓存状态输出到控制台
  */
 export const logCacheStatus = async () => {
-  console.group('Service Worker 缓存状态');
+  console.group('Trạng thái cache của Service Worker');
   
   const cacheNames = await getCacheNames();
-  console.log('已发现的缓存:', cacheNames);
+  console.log('Các cache đã phát hiện:', cacheNames);
   
   for (const cacheName of cacheNames) {
     const urls = await getCacheUrls(cacheName);
-    console.group(`缓存: ${cacheName} (${urls.length} 项)`);
+    console.group(`Cache: ${cacheName} (${urls.length} mục)`);
     urls.forEach(url => console.log(url));
     console.groupEnd();
   }

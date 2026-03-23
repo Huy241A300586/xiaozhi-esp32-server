@@ -395,8 +395,8 @@ export default {
     },
     handleMenuSelect(index) {
       this.activeTab = index;
-      this.currentPage = 1; // 重置到第一页
-      this.pageSize = 10; // 可选：重置每页条数
+      this.currentPage = 1; // reset về trang đầu
+      this.pageSize = 10; // tùy chọn: reset số dòng mỗi trang
       this.loadData();
     },
     handleSearch() {
@@ -454,7 +454,7 @@ export default {
       this.editModelData.duplicateMode = true;
       this.editDialogVisible = true;
     },
-    // 删除单个模型
+    // 删除单mô hình
     deleteModel(model) {
       this.$confirm(this.$t("modelConfig.confirmDelete"), this.$t("message.info"), {
         confirmButtonText: this.$t("common.confirm"),
@@ -499,7 +499,7 @@ export default {
           } else {
             this.$message.error(data.msg || this.$t("modelConfig.duplicateFailed"));
           }
-          done && done(); // 调用done回调关闭加载状态
+          done && done(); // gọi callback done để đóng trạng thái loading
         });
       } else {
         Api.model.updateModel({ modelType, provideCode, id, formData }, ({ data }) => {
@@ -510,7 +510,7 @@ export default {
           } else {
             this.$message.error(data.msg || this.$t("modelConfig.saveFailed"));
           }
-          done && done(); // 调用done回调关闭加载状态
+          done && done(); // gọi callback done để đóng trạng thái loading
         });
       }
     },
@@ -582,7 +582,7 @@ export default {
 
     // 获取模型配置列表
     loadData() {
-      this.loading = true; // 开始加载
+      this.loading = true; // bắt đầu tải
       const params = {
         modelType: this.activeTab,
         modelName: this.search,
@@ -591,7 +591,7 @@ export default {
       };
 
       Api.model.getModelList(params, ({ data }) => {
-        this.loading = false; // 结束加载
+        this.loading = false; // kết thúc tải
         if (data.code === 0) {
           this.modelList = data.data.list;
           this.total = data.data.total;
@@ -600,7 +600,7 @@ export default {
         }
       });
     },
-    // 处理启用/禁用状态变更
+    // 处理Bật/Tắt状态变更
     handleStatusChange(model) {
       const newStatus = model.isEnabled ? 1 : 0;
       const originalStatus = model.isEnabled;
@@ -616,10 +616,10 @@ export default {
           );
           // 保持新状态
           model.isEnabled = newStatus;
-          // 刷新表格数据
+          // làm mới bảng数据
           this.loadData();
         } else {
-          // 操作失败时恢复原状态
+          // Thao tác thất bại时恢复原状态
           model.isEnabled = originalStatus;
           this.$message.error(data.msg || this.$t("modelConfig.operationFailed"));
         }

@@ -84,7 +84,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      title: '参数管理'
+      title: 'Quản lý tham số'
     }
   },
   {
@@ -95,7 +95,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      title: '知识库管理'
+      title: 'Quản lý kho tri thức'
     }
   },
   {
@@ -106,7 +106,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      title: '文档上传管理'
+      title: 'Quản lý tải tài liệu'
     }
   },
 
@@ -118,7 +118,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      title: '服务端管理'
+      title: 'Quản lý phía máy chủ'
     }
   },
   {
@@ -129,7 +129,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      title: 'OTA管理'
+      title: 'Quản lý OTA'
     }
   },
   {
@@ -140,7 +140,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      title: '音色资源开通'
+      title: 'Kích hoạt tài nguyên giọng nói'
     }
   },
   {
@@ -151,7 +151,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      title: '音色克隆管理'
+      title: 'Quản lý nhân bản giọng nói'
     }
   },
   {
@@ -193,7 +193,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      title: '功能配置'
+      title: 'Cấu hình tính năng'
     }
   },
 ]

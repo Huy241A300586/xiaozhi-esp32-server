@@ -141,8 +141,8 @@ export default {
       }
       // 弹开询问框
       this.$confirm(actionItem.message, actionItem.title, {
-        confirmButtonText: actionItem.confirmText, // 确认按钮文本
-        cancelButtonText: this.$t('common.cancel') // 取消按钮文本
+        confirmButtonText: actionItem.confirmText, // text nút xác nhận
+        cancelButtonText: this.$t('common.cancel') // text nút hủy
       }).then(() => {
         // 用户点击了确认按钮
         Api.admin.sendWsServerAction({

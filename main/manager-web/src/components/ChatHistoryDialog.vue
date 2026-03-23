@@ -107,7 +107,7 @@ export default {
             if (!this.messages || this.messages.length === 0) return [];
 
             const result = [];
-            const TIME_INTERVAL = 60 * 1000; // 1分钟的时间间隔（毫秒）
+            const TIME_INTERVAL = 60 * 1000; // khoảng thời gian 1 phút (ms)
 
             // 添加第一条消息的时间标记
             if (this.messages[0]) {

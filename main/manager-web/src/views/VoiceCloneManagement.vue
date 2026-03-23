@@ -98,7 +98,7 @@
                         </div>
                     </el-card>
 
-                    <!-- 空状态提示 -->
+                    <!-- Trạng thái trống -->
                     <div v-else-if="!loading" class="empty-state-wrapper">
                         <div class="empty-state">
                             <div class="empty-icon">
@@ -153,8 +153,8 @@ export default {
                 userId: null
             },
             // 音频播放相关
-            currentAudio: null, // 当前正在播放的音频对象
-            playingRowId: null  // 当前正在播放的行 ID
+            currentAudio: null, // đối tượng âm thanh đang phát
+            playingRowId: null  // ID dòng đang phát
         };
     },
     created() {
@@ -184,25 +184,25 @@ export default {
     methods: {
         getTooltipContent(row) {
             if (!row.hasVoice) {
-                return '待上传';
+                return 'Chờ tải lên';
             }
             switch (row.trainStatus) {
                 case 0:
-                    return '待复刻';
+                    return 'Chờ nhân bản';
                 case 2:
-                    return '训练成功';
+                    return 'Huấn luyện thành công';
                 case 3:
                     // 训练失败时，根据错误信息智能展示
                     if (row.trainError) {
-                        return `训练失败：${row.trainError}`;
+                        return `Huấn luyện thất bại: ${row.trainError}`;
                     }
-                    return '训练失败';
+                    return 'Huấn luyện thất bại';
                 default:
                     return '';
             }
         },
         handleViewDetails(row) {
-            console.log('查看详情:', row);
+            console.log('Xem chi tiết:', row);
             // 可以在这里添加查看详情的逻辑
         },
         handlePageSizeChange(val) {
@@ -307,30 +307,30 @@ export default {
                             this.fetchVoiceCloneList();
                         } else {
                             // 复刻失败时刷新列表以获取完整的错误信息
-                            console.log('API返回错误，刷新列表获取详细错误信息');
+                            console.log('API trả về lỗi, làm mới danh sách để lấy thông tin lỗi chi tiết');
                             this.$message.error(res.msg || this.$t('message.error'));
                             // 刷新列表以获取后端保存的完整错误详情
                             this.fetchVoiceCloneList();
                         }
                     } catch (error) {
                         // 处理响应时出错，刷新列表
-                        console.error('处理响应时出错:', error);
-                        this.$message.error('处理响应时出错');
+                        console.error('Xử lý phản hồi bị lỗi:', error);
+                        this.$message.error('Xử lý phản hồi bị lỗi');
                         this.fetchVoiceCloneList();
                     } finally {
                         this.$set(row, '_cloning', false);
                     }
                 }, (error) => {
                     // API调用失败，刷新列表以获取最新状态
-                    console.error('API调用失败:', error);
-                    this.$message.error('克隆失败，请将鼠标悬停在错误提示上，查看错误详情');
+                    console.error('Gọi API thất bại:', error);
+                    this.$message.error('Nhân bản thất bại, hãy di chuột vào cảnh báo lỗi để xem chi tiết');
                     this.fetchVoiceCloneList();
                     this.$set(row, '_cloning', false);
                 });
             } catch (error) {
                 // 调用API时出错，刷新列表
-                console.error('调用API时出错:', error);
-                this.$message.error('调用API时出错');
+                console.error('Có lỗi khi gọi API:', error);
+                this.$message.error('Có lỗi khi gọi API');
                 this.fetchVoiceCloneList();
                 this.$set(row, '_cloning', false);
             }
@@ -368,7 +368,7 @@ export default {
                 // 强制整个表格重新渲染
                 this.$forceUpdate();
             }
-            console.log('更新行状态:', row.id, '状态:', status, '状态码:', statusCode);
+            console.log('Cập nhật trạng thái dòng:', row.id, 'Trạng thái:', status, 'Mã trạng thái:', statusCode);
         },
         // 复刻成功后的回调
         handleCloneSuccess() {
@@ -409,9 +409,9 @@ export default {
             Api.voiceClone.updateName(params, (res) => {
                 res = res.data;
                 if (res.code === 0) {
-                    this.$message.success(this.$t('voiceClone.updateNameSuccess') || '名称更新成功');
+                    this.$message.success(this.$t('voiceClone.updateNameSuccess') || 'Cập nhật tên thành công');
                 } else {
-                    this.$message.error(res.msg || this.$t('voiceClone.updateNameFailed') || '名称更新失败');
+                    this.$message.error(res.msg || this.$t('voiceClone.updateNameFailed') || 'Cập nhật tên thất bại');
                     // 失败时恢复原值
                     this.fetchVoiceCloneList();
                 }
@@ -423,7 +423,7 @@ export default {
             row.isEdit = false;
             setTimeout(() => {
                 this.submitName(row);
-            }, 100); // 延迟 100ms，避开 enter+blur 同时触发的窗口
+            }, 100); // trễ 100ms để tránh enter+blur kích hoạt cùng lúc
         },
         // 名称输入框:按回车时提交
         onNameEnter(row) {
@@ -467,13 +467,13 @@ export default {
                     });
 
                     audio.play().catch(err => {
-                        console.error('播放失败:', err);
-                        this.$message.error(this.$t('voiceClone.playFailed') || '播放失败');
+                        console.error('Phát thất bại:', err);
+                        this.$message.error(this.$t('voiceClone.playFailed') || 'Phát thất bại');
                         this.playingRowId = null;
                         this.currentAudio = null;
                     });
                 } else {
-                    this.$message.error(res.msg || this.$t('voiceClone.audioNotExist') || '音频不存在');
+                    this.$message.error(res.msg || this.$t('voiceClone.audioNotExist') || 'Âm thanh không tồn tại');
                 }
             });
         },

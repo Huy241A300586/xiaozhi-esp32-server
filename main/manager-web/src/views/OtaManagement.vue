@@ -125,7 +125,7 @@ export default {
             pageSizeOptions: [10, 20, 50, 100],
             total: 0,
             dialogVisible: false,
-            dialogTitle: "新增固件",
+            dialogTitle: "Thêm firmware",
             isAllSelected: false,
             firmwareForm: {
                 id: null,
@@ -394,7 +394,7 @@ export default {
                 const res = await Api.dict.getDictDataByType('FIRMWARE_TYPE')
                 this.firmwareTypes = res.data
             } catch (error) {
-                console.error('获取固件类型失败:', error)
+                console.error('Lấy loại firmware thất bại:', error)
                 this.$message.error(error.message || this.$t('otaManagement.getFirmwareTypesFailed'))
             }
         },

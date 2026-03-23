@@ -12,7 +12,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取设备列表失败:', err);
+                console.error('Lấy danh sách thiết bị thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getAgentBindDevices(agentId, callback);
                 });
@@ -29,7 +29,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('解绑设备失败:', err);
+                console.error('Hủy liên kết thiết bị thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.unbindDevice(device_id, callback);
                 });
@@ -45,7 +45,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('绑定设备失败:', err);
+                console.error('Liên kết thiết bị thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.bindDevice(agentId, deviceCode, callback);
                 });
@@ -61,8 +61,8 @@ export default {
                 callback(res)
             })
             .networkFail((err) => {
-                console.error('更新OTA状态失败:', err)
-                this.$message.error(err.msg || '更新OTA状态失败')
+                console.error('Cập nhật trạng thái OTA thất bại:', err)
+                this.$message.error(err.msg || 'Cập nhật trạng thái OTA thất bại')
                 RequestService.reAjaxFun(() => {
                     this.updateDeviceInfo(id, payload, callback)
                 })
@@ -79,7 +79,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('手动添加设备失败:', err);
+                console.error('Thêm thiết bị thủ công thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.manualAddDevice(params, callback);
                 });
@@ -90,7 +90,7 @@ export default {
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/device/bind/${agentId}`)
             .method('POST')
-            .data({}) // 发送空对象作为请求体
+            .data({}) // gửi object rỗng làm request body
             .success((res) => {
                 RequestService.clearRequestTime();
                 callback(res);
@@ -99,7 +99,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取设备状态失败:', err);
+                console.error('Lấy trạng thái thiết bị thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getDeviceStatus(agentId, callback);
                 });

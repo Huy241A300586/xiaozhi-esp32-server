@@ -73,7 +73,7 @@ export default {
       return;
     }
     
-    // 只有在启用CDN时才添加相关事件和功能
+    // 只有在BậtCDN时才添加相关事件和功能
     if (this.isCDNEnabled) {
       // 添加全局快捷键Alt+C用于显示缓存查看器
       document.addEventListener('keydown', this.handleKeyDown);
@@ -83,13 +83,13 @@ export default {
         this.showCacheViewer = true;
       };
 
-      // 在控制台输出提示信息
+      // 在控制台输出Thông báo信息
       console.info(
         '%c[' + this.$t('system.name') + '] ' + this.$t('cache.cdnEnabled'),
         'color: #409EFF; font-weight: bold;'
       );
       console.info(
-        '按下 Alt+C 组合键或在控制台运行 checkCDNCacheStatus() 可以查看CDN缓存状态'
+        'Nhấn tổ hợp Alt+C hoặc chạy checkCDNCacheStatus() trong console để xem trạng thái cache CDN'
       );
 
       // 检查Service Worker状态
@@ -102,7 +102,7 @@ export default {
     }
   },
   beforeDestroy() {
-    // 只有在启用CDN时才需要移除事件监听
+    // 只有在BậtCDN时才需要移除事件监听
     if (this.isCDNEnabled) {
       document.removeEventListener('keydown', this.handleKeyDown);
     }
@@ -139,7 +139,7 @@ export default {
                 'color: #E6A23C; font-weight: bold;'
               );
 
-              // 开发环境下提供额外提示
+              // 开发环境下提供额外Thông báo
               if (process.env.NODE_ENV === 'development') {
                 console.info(
                   '%c[' + this.$t('system.name') + '] ' + this.$t('cache.swDevEnvWarning'),
@@ -170,7 +170,7 @@ export default {
                 }
           }
         } catch (error) {
-          console.error('检查Service Worker状态失败:', error);
+          console.error('Kiểm tra trạng thái Service Worker thất bại:', error);
         }
       } else {
           console.warn(this.$t('cache.swNotSupported'));

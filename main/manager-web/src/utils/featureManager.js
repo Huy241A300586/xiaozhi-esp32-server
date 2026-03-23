@@ -36,7 +36,7 @@ class FeatureManager {
                 description: 'feature.asr.description'
             }
         };
-        this.currentFeatures = { ...this.defaultFeatures }; // 当前内存中的配置
+        this.currentFeatures = { ...this.defaultFeatures }; // cấu hình hiện có trong bộ nhớ
         this.initialized = false;
         this.initPromise = null;
     }
@@ -60,16 +60,16 @@ class FeatureManager {
             // 从pub-config接口获取配置
             const config = await this.getConfigFromPubConfig();
             if (config) {
-                this.currentFeatures = { ...config }; // 保存到内存
+                this.currentFeatures = { ...config }; // lưu vào bộ nhớ
                 this.initialized = true;
                 return;
             }
         } catch (error) {
-            console.warn('从pub-config接口获取配置失败:', error);
+            console.warn('Lấy cấu hình từ API pub-config thất bại:', error);
         }
 
         // pub-config接口失败，使用默认配置
-        this.currentFeatures = { ...this.defaultFeatures }; // 保存默认配置到内存
+        this.currentFeatures = { ...this.defaultFeatures }; // lưu cấu hình mặc định vào bộ nhớ
         this.initialized = true;
     }
 
@@ -110,21 +110,21 @@ class FeatureManager {
                                     if (config && config.features) {
                                         // 确保knowledgeBase功能存在且配置正确
                                         if (!config.features.knowledgeBase) {
-                                            console.warn('配置中缺少knowledgeBase功能，合并默认配置');
+                                            console.warn('Thiếu cấu hình knowledgeBase, đang gộp với cấu hình mặc định');
                                             config.features = { ...this.defaultFeatures, ...config.features };
                                         }
                                         resolve(config.features);
                                     } else {
-                                        console.warn('配置中缺少features对象，使用默认配置');
+                                        console.warn('Thiếu đối tượng features trong cấu hình, dùng cấu hình mặc định');
                                         resolve(this.defaultFeatures);
                                     }
                                     configCache.systemWebMenu = config;
                                 } catch (error) {
-                                    console.warn('处理systemWebMenu配置失败:', error);
+                                    console.warn('Xử lý cấu hình systemWebMenu thất bại:', error);
                                     resolve(null);
                                 }
                             } else {
-                                console.warn('接口返回code不为0或缺少必要数据，使用默认配置');
+                                console.warn('API trả về code khác 0 hoặc thiếu dữ liệu cần thiết, dùng cấu hình mặc định');
                                 resolve(null);
                             }
                         } else {
@@ -144,31 +144,31 @@ class FeatureManager {
                                     if (config && config.features) {
                                         // 确保knowledgeBase功能存在且配置正确
                                         if (!config.features.knowledgeBase) {
-                                            console.warn('配置中缺少knowledgeBase功能，合并默认配置');
+                                            console.warn('Thiếu cấu hình knowledgeBase, đang gộp với cấu hình mặc định');
                                             config.features = { ...this.defaultFeatures, ...config.features };
                                         }
                                         resolve(config.features);
                                     } else {
-                                        console.warn('配置中缺少features对象，使用默认配置');
+                                        console.warn('Thiếu đối tượng features trong cấu hình, dùng cấu hình mặc định');
                                         resolve(this.defaultFeatures);
                                     }
                                     configCache.systemWebMenu = config;
                                 } catch (error) {
-                                    console.warn('处理systemWebMenu配置失败:', error);
+                                    console.warn('Xử lý cấu hình systemWebMenu thất bại:', error);
                                     resolve(null);
                                 }
                             } else {
-                                console.warn('接口返回缺少systemWebMenu数据，使用默认配置');
+                                console.warn('API trả về thiếu dữ liệu systemWebMenu, dùng cấu hình mặc định');
                                 resolve(null);
                             }
                         }
                         this.updateConfigCache(configCache)
                     } else {
-                        console.warn('接口返回数据中缺少data字段，使用默认配置');
+                        console.warn('Dữ liệu API trả về thiếu trường data, dùng cấu hình mặc định');
                         resolve(null);
                     }
                 } else {
-                    console.warn('pub-config接口调用失败，使用默认配置');
+                    console.warn('Gọi API pub-config thất bại, dùng cấu hình mặc định');
                     resolve(null);
                 }
             });
@@ -193,7 +193,7 @@ class FeatureManager {
 
             // 异步保存到后端API
             this.saveConfigToAPI(config).catch(error => {
-                console.warn('保存配置到API失败:', error);
+                console.warn('Lưu cấu hình vào API thất bại:', error);
             }).finally(() => {
                 this.init()
             });
@@ -203,7 +203,7 @@ class FeatureManager {
                 detail: config
             }));
         } catch (error) {
-            console.error('保存功能配置失败:', error);
+            console.error('Lưu cấu hình tính năng thất bại:', error);
         }
     }
 
@@ -225,20 +225,20 @@ class FeatureManager {
                         }
                     }),
                     valueType: 'json',
-                    remark: '系统功能菜单配置'
+                    remark: 'Cấu hình menu tính năng hệ thống'
                 },
                 (updateResult) => {
                     if (updateResult.code === 0) {
                         resolve();
                     } else {
-                        // 如果更新失败，可能是参数不存在或其他错误，记录但不阻止保存到localStorage
-                        console.warn('更新参数失败:', updateResult.msg);
-                        resolve(); // 不阻止保存到localStorage
+                        // 如果更新失败，可能是参数不存在或其他错误，记录但không chặn lưu vào localStorage
+                        console.warn('Cập nhật tham số thất bại:', updateResult.msg);
+                        resolve(); // không chặn lưu vào localStorage
                     }
                 },
                 (error) => {
-                    console.warn('更新参数失败:', error);
-                    resolve(); // 不阻止保存到localStorage
+                    console.warn('Cập nhật tham số thất bại:', error);
+                    resolve(); // không chặn lưu vào localStorage
                 }
             );
         });
@@ -290,14 +290,14 @@ class FeatureManager {
     }
 
     /**
-     * 启用功能
+     * Bật功能
      */
     enableFeature(featureKey) {
         return this.setFeatureStatus(featureKey, true);
     }
 
     /**
-     * 禁用功能
+     * Tắt功能
      */
     disableFeature(featureKey) {
         return this.setFeatureStatus(featureKey, false);
@@ -332,7 +332,7 @@ class FeatureManager {
     }
 
     /**
-     * 获取已启用的功能列表
+     * 获取已Bật的功能列表
      */
     getEnabledFeatures() {
         const features = this.getAllFeatures();
@@ -340,7 +340,7 @@ class FeatureManager {
     }
 
     /**
-     * 检查功能是否启用
+     * 检查功能是否Bật
      */
     isFeatureEnabled(featureKey) {
         return this.getFeatureStatus(featureKey);

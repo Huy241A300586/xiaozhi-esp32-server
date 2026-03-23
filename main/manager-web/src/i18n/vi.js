@@ -657,12 +657,7 @@ export default {
   'common.loading': 'Đang tải',
 
   // Language switch
-  'language.zhCN': '中文简体',
-  'language.zhTW': '中文繁體',
-  'language.en': 'English',
-  'language.de': 'Deutsch',
   'language.vi': 'Tiếng Việt',
-  'language.ptBR': 'Português (Brasil)',
 
   // Home page text
   'home.addAgent': 'Thêm tác nhân',

@@ -59,7 +59,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取配置失败:', err);
+                console.error('Lấy cấu hình thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getDeviceConfig(agentId, callback);
                 });
@@ -82,7 +82,7 @@ export default {
             }).send();
     },
     // 新增方法：获取智能体模板
-    getAgentTemplate(callback) {  // 移除templateName参数
+    getAgentTemplate(callback) {  // bỏ tham số templateName
         RequestService.sendRequest()
             .url(`${getServiceUrl()}/agent/template`)
             .method('GET')
@@ -91,7 +91,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取模板失败:', err);
+                console.error('Lấy mẫu thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getAgentTemplate(callback);
                 });
@@ -109,7 +109,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取模板分页列表失败:', err);
+                console.error('Lấy danh sách mẫu phân trang thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getAgentTemplatesPage(params, callback);
                 });
@@ -340,9 +340,9 @@ export default {
     // 批量删除智能体模板
     batchDeleteAgentTemplate(ids, callback) {
         RequestService.sendRequest()
-            .url(`${getServiceUrl()}/agent/template/batch-remove`) // 修改为新的URL
+            .url(`${getServiceUrl()}/agent/template/batch-remove`) // đổi sang URL mới
             .method('POST')
-            .data(Array.isArray(ids) ? ids : [ids]) // 确保是数组格式
+            .data(Array.isArray(ids) ? ids : [ids]) // đảm bảo là dạng mảng
             .success((res) => {
                 RequestService.clearRequestTime();
                 callback(res);
@@ -363,7 +363,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('获取单个模板失败:', err);
+                console.error('Lấy một mẫu thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getAgentTemplateById(templateId, callback);
                 });

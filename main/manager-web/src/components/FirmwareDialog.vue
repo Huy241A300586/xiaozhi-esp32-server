@@ -88,7 +88,7 @@ export default {
   },
   computed: {
     isTypeDisabled() {
-      // 如果有id，说明是编辑模式，禁用类型选择
+      // 如果有id，说明是编辑模式，Tắt类型选择
       return !!this.form.id
     }
   },
@@ -116,7 +116,7 @@ export default {
     handleSubmit() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          // 如果是新增模式且没有上传文件，则提示错误
+          // 如果是新增模式且没有上传文件，则Thông báo错误
           if (!this.form.id && !this.form.firmwarePath) {
             this.$message.error(this.$t('firmwareDialog.requiredFirmwareFile'))
             return
@@ -148,13 +148,13 @@ export default {
 
       // 使用setTimeout实现简单的0-50%过渡
       const timer = setTimeout(() => {
-        if (this.uploadProgress < 50) {  // 只有当进度小于50%时才设置
+        if (this.uploadProgress < 50) {  // chỉ đặt khi tiến độ nhỏ hơn 50%
           this.uploadProgress = 50
         }
       }, 1000)
 
       Api.ota.uploadFirmware(file, (res) => {
-        clearTimeout(timer)  // 清除定时器
+        clearTimeout(timer)  // xóa timer
         res = res.data
         if (res.code === 0) {
           this.form.firmwarePath = res.data
@@ -198,7 +198,7 @@ export default {
       this.uploadStatus = ''
       this.isUploading = false
       // 重置表单中的文件相关字段
-      if (!this.form.id) {  // 只在新增时重置
+      if (!this.form.id) {  // chỉ reset khi thêm mới
         this.form.firmwarePath = ''
         this.form.size = 0
       }

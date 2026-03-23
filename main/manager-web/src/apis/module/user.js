@@ -38,7 +38,7 @@ export default {
                 RequestService.clearRequestTime();
                 callback(res);
             })
-            .networkFail((err) => {  // 添加错误参数
+            .networkFail((err) => {  // thêm tham số lỗi
 
             }).send()
     },
@@ -93,7 +93,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('保存配置失败:', err);
+                console.error('Lưu cấu hình thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.saveDeviceConfig(device_id, configData, callback);
                 });
@@ -109,7 +109,7 @@ export default {
                 callback(res)
             })
             .networkFail((err) => {
-                console.error('接口请求失败:', err)
+                console.error('Yêu cầu API thất bại:', err)
                 RequestService.reAjaxFun(() => {
                     this.getUserInfo(callback)
                 })
@@ -147,7 +147,7 @@ export default {
                 successCallback(res);
             })
             .networkFail((err) => {
-                console.error('修改用户状态失败:', err)
+                console.error('Cập nhật trạng thái người dùng thất bại:', err)
                 RequestService.reAjaxFun(() => {
                     this.changeUserStatus(status, userIds)
                 })
@@ -169,7 +169,7 @@ export default {
                 }
             })
             .networkFail((err) => {
-                console.error('获取公共配置失败:', err);
+                console.error('Lấy cấu hình công khai thất bại:', err);
                 RequestService.reAjaxFun(() => {
                     this.getPubConfig(callback, failCallback);
                 });

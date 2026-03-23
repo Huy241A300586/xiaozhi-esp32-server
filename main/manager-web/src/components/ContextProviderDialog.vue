@@ -230,7 +230,7 @@ export default {
   flex: 1;
   border-radius: 12px;
   border: 1px solid #e4e7ed;
-  border-left: 4px solid #409EFF; /* 左侧强调色 */
+  border-left: 4px solid #409EFF; /* màu nhấn bên trái */
   background-color: #fff;
   transition: all 0.3s ease;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
@@ -261,7 +261,7 @@ export default {
   text-align: right;
   font-size: 13px;
   white-space: nowrap;
-  line-height: 32px; /* 垂直居中对齐 */
+  line-height: 32px; /* căn giữa theo chiều dọc */
 }
 
 .flex-1 {

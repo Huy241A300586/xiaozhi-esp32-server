@@ -19,7 +19,7 @@ export default {
                 callback(res)
             })
             .networkFail((err) => {
-                console.error('请求失败:', err)
+                console.error('Yêu cầu thất bại:', err)
                 RequestService.reAjaxFun(() => {
                     this.getUserList(callback)
                 })
@@ -35,7 +35,7 @@ export default {
                 callback(res)
             })
             .networkFail((err) => {
-                console.error('删除失败:', err)
+                console.error('Xóa thất bại:', err)
                 RequestService.reAjaxFun(() => {
                     this.deleteUser(id, callback)
                 })
@@ -51,7 +51,7 @@ export default {
                 callback(res)
             })
             .networkFail((err) => {
-                console.error('重置密码失败:', err)
+                console.error('Đặt lại mật khẩu thất bại:', err)
                 RequestService.reAjaxFun(() => {
                     this.resetUserPassword(id, callback)
                 })
@@ -73,7 +73,7 @@ export default {
                 callback(res)
             })
             .networkFail((err) => {
-                console.error('获取参数列表失败:', err)
+                console.error('Lấy danh sách tham số thất bại:', err)
                 RequestService.reAjaxFun(() => {
                     this.getParamsList(params, callback)
                 })
@@ -90,7 +90,7 @@ export default {
                 callback(res)
             })
             .networkFail((err) => {
-                console.error('添加参数失败:', err)
+                console.error('Thêm tham số thất bại:', err)
                 RequestService.reAjaxFun(() => {
                     this.addParam(data, callback)
                 })
@@ -111,7 +111,7 @@ export default {
                 failCallback(err)
             })
             .networkFail((err) => {
-                console.error('更新参数失败:', err)
+                console.error('Cập nhật tham số thất bại:', err)
                 RequestService.reAjaxFun(() => {
                     this.updateParam(data, callback)
                 })
@@ -128,7 +128,7 @@ export default {
                 callback(res);
             })
             .networkFail((err) => {
-                console.error('删除参数失败:', err)
+                console.error('Xóa tham số thất bại:', err)
                 RequestService.reAjaxFun(() => {
                     this.deleteParam(ids, callback)
                 })
@@ -144,7 +144,7 @@ export default {
                 callback(res)
             })
             .networkFail((err) => {
-                console.error('获取ws服务端列表失败:', err)
+                console.error('Lấy danh sách máy chủ WS thất bại:', err)
                 RequestService.reAjaxFun(() => {
                     this.getWsServerList(params, callback)
                 })

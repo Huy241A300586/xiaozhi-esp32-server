@@ -150,7 +150,7 @@ export default {
       loading: false,
       userApi: null,
       firmwareTypes: [],
-      mqttServiceAvailable: false, // MQTT服务是否可用
+      mqttServiceAvailable: false, // MQTT service có sẵn hay không
     };
   },
   computed: {
@@ -308,7 +308,7 @@ export default {
       row.isEdit = false;
       setTimeout(() => {
         this.submitRemark(row);
-      }, 100); // 延迟 100ms，避开 enter+blur 同时触发的窗口
+      }, 100); // trễ 100ms để tránh enter+blur kích hoạt cùng lúc
     },
     // 备注输入框：按回车时提交
     onRemarkEnter(row) {

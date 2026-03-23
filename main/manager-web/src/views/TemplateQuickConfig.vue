@@ -250,7 +250,7 @@ export default {
       // 编辑模式：加载现有模板
       this.fetchTemplateById(templateId);
     } else {
-      // 新建模式：设置默认值并获取排序号
+      // 新建模式：设置giá trị mặc định并获取排序号
       this.form.agentName = this.$t('templateQuickConfig.newTemplate');
       this.fetchTemplateListForSort();
     }

@@ -83,7 +83,7 @@
                 @change="val => handleParamChange(currentFunction, field.key, val)" />
 
               <!-- JSON -->
-              <el-input v-else-if="field.type === 'json'" type="textarea" :rows="6" placeholder="请输入合法的 JSON"
+              <el-input v-else-if="field.type === 'json'" type="textarea" :rows="6" placeholder="Vui lòng nhập JSON hợp lệ"
                 v-model="textCache[field.key]" @blur="flushJson(field)" />
 
               <!-- number -->
@@ -284,7 +284,7 @@ export default {
     copyUrl() {
       const textarea = document.createElement('textarea');
       textarea.value = this.mcpUrl;
-      textarea.style.position = 'fixed';  // 防止页面滚动
+      textarea.style.position = 'fixed';  // tránh trang bị cuộn
       document.body.appendChild(textarea);
       textarea.select();
 
@@ -296,8 +296,8 @@ export default {
           this.$message.error(this.$t('functionDialog.copyFailed'));
         }
       } catch (err) {
-        this.$message.error('复制失败，请手动复制');
-        console.error('复制失败:', err);
+        this.$message.error('Sao chép thất bại, vui lòng sao chép thủ công');
+        console.error('Sao chép thất bại:', err);
       } finally {
         document.body.removeChild(textarea);
       }
@@ -315,7 +315,7 @@ export default {
           this.mcpUrl = res.data.data || "";
         } else {
           this.mcpUrl = res.data.msg;
-          console.error('获取MCP地址失败:', res.data.msg);
+          console.error('Lấy địa chỉ MCP thất bại:', res.data.msg);
         }
       });
     },
@@ -330,7 +330,7 @@ export default {
         } else {
           this.mcpTools = [];
           this.mcpStatus = "disconnected";
-          console.error('获取MCP工具列表失败:', res.data.msg);
+          console.error('Lấy danh sách công cụ MCP thất bại:', res.data.msg);
         }
       });
     },

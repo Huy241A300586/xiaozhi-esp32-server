@@ -300,7 +300,7 @@ export default {
         const captchaAndPassword = this.form.captcha + this.form.password;
         encryptedPassword = sm2Encrypt(this.sm2PublicKey, captchaAndPassword);
       } catch (error) {
-        console.error('密码加密失败:', error);
+        console.error('Mã hóa mật khẩu thất bại:', error);
         showDanger(this.$t('sm2.encryptionFailed'));
         return;
       }
@@ -316,7 +316,7 @@ export default {
         goToPage('/login');
       }, (err) => {
         showDanger(err.data.msg || this.$t('register.registerFailed'));
-        if (err.data != null && err.data.msg != null && err.data.msg.indexOf('图形验证码') > -1) {
+        if (err.data != null && err.data.msg != null && err.data.msg.indexOf('Mã xác minh hình ảnh') > -1) {
           this.fetchCaptcha();
         }
       })
