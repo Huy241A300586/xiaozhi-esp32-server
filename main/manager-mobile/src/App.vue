@@ -91,4 +91,19 @@ image {
   height: 100%;
   vertical-align: middle;
 }
+
+
+page,
+#app {
+  min-height: 100%;
+}
+
+body {
+  color: var(--deskbot-color-text);
+  background: transparent;
+}
+
+uni-page-body {
+  background: transparent;
+}
 </style>

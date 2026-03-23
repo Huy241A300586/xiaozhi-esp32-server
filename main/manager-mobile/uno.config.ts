@@ -55,6 +55,10 @@ export default defineConfig({
     colors: {
       /** 主题色，用法如: text-primary */
       primary: 'var(--wot-color-theme,#0957DE)',
+      ink: 'var(--deskbot-color-text,#223054)',
+      soft: 'var(--deskbot-color-text-soft,#51627f)',
+      surface: 'var(--deskbot-color-surface,#ffffff)',
+      accent: 'var(--deskbot-color-accent,#6baaff)',
     },
     fontSize: {
       /** 提供更小号的字体，用法如：text-2xs */

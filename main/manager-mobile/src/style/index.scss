@@ -1,19 +1,84 @@
-// 测试用的 iconfont，可生效
-// @import './iconfont.css';
-
-.test {
-  // 可以通过 @apply 多个样式封装整体样式
-  @apply mt-4 ml-4;
-
-  padding-top: 4px;
-  color: red;
-}
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap");
 
 :root,
 page {
-  // 修改按主题色
-  // --wot-color-theme: #37c2bc;
+  --deskbot-font-body: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --deskbot-font-ui: "Inter", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  // 修改按钮背景色
-  // --wot-button-primary-bg-color: green;
+  --deskbot-color-primary: #0957de;
+  --deskbot-color-primary-strong: #223054;
+  --deskbot-color-accent: #6baaff;
+  --deskbot-color-bg: #f4f7fc;
+  --deskbot-color-surface: rgba(255, 255, 255, 0.88);
+  --deskbot-color-surface-strong: #ffffff;
+  --deskbot-color-text: #223054;
+  --deskbot-color-text-soft: #51627f;
+  --deskbot-color-border: rgba(125, 152, 196, 0.18);
+  --deskbot-shadow-soft: 0 20rpx 60rpx rgba(34, 48, 84, 0.10);
+  --deskbot-shadow-card: 0 16rpx 44rpx rgba(61, 101, 181, 0.10);
+  --deskbot-radius-card: 28rpx;
+  --deskbot-radius-pill: 999rpx;
+
+  --wot-color-theme: var(--deskbot-color-primary);
+  --wot-color-success: #17b26a;
+  --wot-color-warning: #f59e0b;
+  --wot-color-danger: #ef4444;
+  --wot-color-text: var(--deskbot-color-text);
+  --wot-color-secondary: var(--deskbot-color-text-soft);
+  --wot-color-bg: var(--deskbot-color-bg);
+  --wot-color-border: var(--deskbot-color-border);
+  --wot-button-primary-bg-color: linear-gradient(135deg, #0957de 0%, #6baaff 100%);
+  --wot-button-primary-border-color: transparent;
+  --wot-button-primary-color: #ffffff;
+  --wot-button-radius: 999rpx;
+  --wot-cell-group-bg-color: transparent;
+  --wot-tabs-line-color: var(--deskbot-color-primary);
+  --wot-navbar-color: var(--deskbot-color-text);
+  --wot-navbar-background: rgba(255,255,255,0.85);
+}
+
+page {
+  font-family: var(--deskbot-font-body);
+  background:
+    radial-gradient(circle at top left, rgba(107, 170, 255, 0.22), transparent 34%),
+    radial-gradient(circle at top right, rgba(9, 87, 222, 0.12), transparent 28%),
+    linear-gradient(180deg, #f7f9fd 0%, #eef3fb 100%);
+  color: var(--deskbot-color-text);
+}
+
+view, text, button, input, textarea, picker, label {
+  font-family: var(--deskbot-font-body);
+  box-sizing: border-box;
+}
+
+.deskbot-shell {
+  min-height: 100vh;
+  color: var(--deskbot-color-text);
+}
+
+.deskbot-card {
+  background: var(--deskbot-color-surface);
+  border: 1rpx solid var(--deskbot-color-border);
+  box-shadow: var(--deskbot-shadow-card);
+  border-radius: var(--deskbot-radius-card);
+  backdrop-filter: blur(16rpx);
+}
+
+.deskbot-eyebrow {
+  font-family: var(--deskbot-font-ui);
+  font-size: 22rpx;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(9, 87, 222, 0.72);
+}
+
+.deskbot-headline {
+  font-family: var(--deskbot-font-body);
+  font-weight: 800;
+  color: var(--deskbot-color-primary-strong);
+}
+
+.deskbot-subtitle {
+  color: var(--deskbot-color-text-soft);
+  line-height: 1.65;
 }
