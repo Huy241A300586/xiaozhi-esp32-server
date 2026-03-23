@@ -1,50 +1,30 @@
 import { ref } from 'vue'
 import { useLangStore } from '@/store/lang'
 import type { Language } from '@/store/lang'
-
-// 导入各个语言的翻译文件
-import zh_CN from './zh_CN'
-import en from './en'
-import zh_TW from './zh_TW'
-import de from './de'
 import vi from './vi'
-import pt_BR from './pt_BR'
 
-// 语言包映射
 const messages = {
-  zh_CN: zh_CN,
-  en,
-  zh_TW: zh_TW,
-  de,
   vi,
-  pt_BR: pt_BR,
 }
 
-// 当前使用的语言
-const currentLang = ref<Language>('zh_CN')
+const currentLang = ref<Language>('vi')
 
-// 初始化语言
 export function initI18n() {
   const langStore = useLangStore()
-  currentLang.value = langStore.currentLang
+  currentLang.value = langStore.currentLang || 'vi'
 }
 
-// 切换语言
-export function changeLanguage(lang: Language) {
-  currentLang.value = lang
+export function changeLanguage(lang: Language = 'vi') {
+  currentLang.value = 'vi'
   const langStore = useLangStore()
-  langStore.changeLang(lang)
+  langStore.changeLang('vi')
 }
 
-// 获取翻译文本
 export function t(key: string, params?: Record<string, string | number>): string {
-  const langMessages = messages[currentLang.value]
-
-  // 直接查找扁平键名
+  const langMessages = messages[currentLang.value] || messages.vi
   if (langMessages && typeof langMessages === 'object' && key in langMessages) {
     let value = langMessages[key]
     if (typeof value === 'string') {
-      // 处理参数替换
       if (params) {
         let result = value
         Object.entries(params).forEach(([paramKey, paramValue]) => {
@@ -57,23 +37,15 @@ export function t(key: string, params?: Record<string, string | number>): string
     }
     return key
   }
-
-  return key // 如果找不到对应的翻译，返回key本身
+  return key
 }
 
-// 获取当前语言
 export function getCurrentLanguage(): Language {
-  return currentLang.value
+  return 'vi'
 }
 
-// 获取支持的语言列表
 export function getSupportedLanguages(): { code: Language, name: string }[] {
   return [
-    { code: 'zh_CN', name: '简体中文' },
-    { code: 'en', name: 'English' },
-    { code: 'zh_TW', name: '繁體中文' },
-    { code: 'de', name: 'Deutsch' },
     { code: 'vi', name: 'Tiếng Việt' },
-    { code: 'pt_BR', name: 'Português (Brasil)' },
   ]
 }

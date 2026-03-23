@@ -10,11 +10,10 @@
 
 <script lang="ts" setup>
 import type { LoginData } from '@/api/auth'
-import type { Language } from '@/store/lang'
 import { computed, onMounted, ref } from 'vue'
 import { login } from '@/api/auth'
 // 导入国际化相关功能
-import { changeLanguage, getCurrentLanguage, getSupportedLanguages, initI18n, t } from '@/i18n'
+import { initI18n, t } from '@/i18n'
 import { useConfigStore, useUserStore } from '@/store'
 // 导入SM2加密工具
 import { getEnvBaseUrl, sm2Encrypt } from '@/utils'
@@ -120,17 +119,15 @@ function goToForgotPassword() {
 
 // 跳转到用户协议
 function goToUserAgreement() {
-  const lang = getCurrentLanguage() === 'zh_CN' ? 'zh' : 'en'
   uni.navigateTo({
-    url: `/pages/login/user-agreement-${lang}`,
+    url: '/pages/login/user-agreement-zh',
   })
 }
 
 // 跳转到隐私政策
 function goToPrivacyPolicy() {
-  const lang = getCurrentLanguage() === 'zh_CN' ? 'zh' : 'en'
   uni.navigateTo({
-    url: `/pages/login/privacy-policy-${lang}`,
+    url: '/pages/login/privacy-policy-zh',
   })
 }
 
@@ -253,18 +250,8 @@ onLoad(() => {
   refreshCaptcha()
 })
 
-// 语言切换相关
-const showLanguageSheet = ref(false)
-const supportedLanguages = getSupportedLanguages()
-
 // 初始化国际化
 initI18n()
-
-// 切换语言
-function handleLanguageChange(lang: Language) {
-  changeLanguage(lang)
-  showLanguageSheet.value = false
-}
 
 // 组件挂载时确保配置已加载
 onMounted(async () => {
@@ -295,13 +282,6 @@ onMounted(async () => {
 
     <!-- 右上角按钮组 -->
     <view class="top-right-buttons" :style="{ top: `${safeAreaInsets?.top + 10}px` }">
-      <!-- 语言切换按钮 -->
-      <view class="lang-btn" @click="showLanguageSheet = true">
-        <text class="lang-text-icon">
-          {{ t('login.selectLanguageTip') }}
-        </text>
-      </view>
-
       <!-- 服务端设置按钮 -->
       <view class="server-btn" @click="goToServerSetting">
         <wd-icon name="setting" custom-class="server-icon" />
@@ -469,28 +449,6 @@ onMounted(async () => {
             {{ t('login.confirm') }}
           </wd-button>
         </view>
-      </view>
-    </wd-action-sheet>
-
-    <!-- 语言选择弹窗 -->
-    <wd-action-sheet
-      v-model="showLanguageSheet"
-      :title="t('login.selectLanguage')"
-      :close-on-click-modal="true"
-    >
-      <view class="language-sheet">
-        <scroll-view scroll-y class="language-list">
-          <view
-            v-for="lang in supportedLanguages"
-            :key="lang.code"
-            class="language-item"
-            @click="handleLanguageChange(lang.code)"
-          >
-            <text class="language-name">
-              {{ lang.name }}
-            </text>
-          </view>
-        </scroll-view>
       </view>
     </wd-action-sheet>
   </view>
